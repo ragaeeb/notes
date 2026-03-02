@@ -16,7 +16,7 @@ const Toolbar = () => {
     };
 
     return (
-        <div className="flex flex-wrap items-center gap-2 border-slate-700 border-b bg-slate-950/70 px-4 py-3">
+        <div className="flex flex-wrap items-center gap-2 border-edge border-b bg-overlay px-4 py-3">
             <Button
                 size="sm"
                 variant="outline"

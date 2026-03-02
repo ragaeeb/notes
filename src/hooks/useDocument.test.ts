@@ -1,5 +1,9 @@
-import { describe, expect, it, mock } from 'bun:test';
+import { afterEach, describe, expect, it, mock } from 'bun:test';
 import { renderHook, waitFor } from '@testing-library/react';
+
+afterEach(() => {
+    mock.restore();
+});
 
 const mockCodecs = (
     decodeResult: unknown,

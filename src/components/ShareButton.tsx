@@ -10,7 +10,9 @@ const ShareButton = ({ onShare, isCopied }: ShareButtonProps) => {
                 <TooltipTrigger asChild>
                     <Button
                         data-testid="share-button"
-                        onClick={() => void onShare()}
+                        onClick={() => {
+                            onShare().catch(() => {});
+                        }}
                         size="sm"
                         type="button"
                         variant="secondary"

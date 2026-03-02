@@ -25,7 +25,7 @@ const DialogContent = React.forwardRef<
             <DialogOverlay />
             <DialogPrimitive.Content
                 className={cn(
-                    'fixed top-1/2 left-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg border border-slate-700 bg-slate-950 p-6 text-slate-100 shadow-lg',
+                    'fixed top-1/2 left-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg border border-edge bg-surface p-6 text-fg shadow-lg',
                     className,
                 )}
                 ref={ref}
@@ -56,7 +56,7 @@ const DialogDescription = React.forwardRef<
     React.ComponentRef<typeof DialogPrimitive.Description>,
     React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >(({ className, ...props }, ref) => {
-    return <DialogPrimitive.Description className={cn('text-slate-300 text-sm', className)} ref={ref} {...props} />;
+    return <DialogPrimitive.Description className={cn('text-fg-3 text-sm', className)} ref={ref} {...props} />;
 });
 DialogDescription.displayName = DialogPrimitive.Description.displayName;
 

@@ -1,15 +1,15 @@
 const Footer = () => {
     return (
-        <footer className="border-slate-700 border-t py-3 text-center text-slate-400 text-xs">
-            v{__APP_VERSION__} ·{' '}
+        <footer className="border-edge border-t py-3 text-center text-fg-dim text-xs">
             <a
-                className="underline decoration-slate-500 underline-offset-2 hover:text-slate-200"
+                className="underline decoration-fg-faint underline-offset-2 hover:text-fg-2"
                 href="https://github.com/ragaeeb/notes"
                 rel="noopener noreferrer"
                 target="_blank"
             >
-                GitHub
+                Notes
             </a>
+            · v{__APP_VERSION__}
         </footer>
     );
 };

@@ -77,22 +77,29 @@ describe('useShareUrl', () => {
     it('should update the browser URL using replaceState not pushState', async () => {
         mock.module('../codecs', () => ({ encodeToUrl: async () => '/v1/#encoded' }));
 
-        const replaceSpy = mock(window.history.replaceState.bind(window.history));
-        const pushSpy = mock(window.history.pushState.bind(window.history));
+        const originalReplaceState = window.history.replaceState;
+        const originalPushState = window.history.pushState;
+        const replaceSpy = mock(originalReplaceState.bind(window.history));
+        const pushSpy = mock(originalPushState.bind(window.history));
 
         window.history.replaceState = replaceSpy as unknown as History['replaceState'];
         window.history.pushState = pushSpy as unknown as History['pushState'];
 
-        setClipboard(async () => undefined);
+        try {
+            setClipboard(async () => undefined);
 
-        const { useShareUrl } = await import(`./useShareUrl?case=${Math.random()}`);
-        const { result } = renderHook(() => useShareUrl());
+            const { useShareUrl } = await import(`./useShareUrl?case=${Math.random()}`);
+            const { result } = renderHook(() => useShareUrl());
 
-        await act(async () => {
-            await result.current.share(state);
-        });
+            await act(async () => {
+                await result.current.share(state);
+            });
 
-        expect(replaceSpy).toHaveBeenCalled();
-        expect(pushSpy).not.toHaveBeenCalled();
+            expect(replaceSpy).toHaveBeenCalled();
+            expect(pushSpy).not.toHaveBeenCalled();
+        } finally {
+            window.history.replaceState = originalReplaceState;
+            window.history.pushState = originalPushState;
+        }
     });
 });

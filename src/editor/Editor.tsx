@@ -4,6 +4,7 @@ import { ListItemNode, ListNode } from '@lexical/list';
 import { TRANSFORMERS } from '@lexical/markdown';
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
@@ -14,22 +15,31 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 import type { SerializedEditorState } from 'lexical';
+import { useEffect } from 'react';
 
 import Toolbar from '../components/Toolbar';
 import { EMPTY_EDITOR_STATE } from './emptyState';
 
 const editorTheme = {
-    code: 'block overflow-x-auto whitespace-pre-wrap break-words rounded bg-slate-900 p-3 font-mono text-sm leading-6 text-slate-100',
-    link: 'text-sky-300 underline underline-offset-2',
+    code: 'block overflow-x-auto whitespace-pre-wrap break-words rounded bg-inset p-3 font-mono text-sm leading-6 text-fg',
+    link: 'text-link underline underline-offset-2',
     list: { listitem: 'my-1', ol: 'list-decimal pl-6', ul: 'list-disc pl-6' },
-    paragraph: 'mb-2 leading-7 text-slate-100',
-    quote: 'border-l-2 border-slate-600 pl-4 italic text-slate-300',
+    paragraph: 'mb-2 leading-7 text-fg',
+    quote: 'border-l-2 border-edge-accent pl-4 italic text-fg-3',
     text: {
         bold: 'font-semibold',
-        code: 'rounded bg-slate-800 px-1 py-0.5 font-mono text-sm leading-6',
+        code: 'rounded bg-subtle px-1 py-0.5 font-mono text-sm leading-6',
         italic: 'italic',
         underline: 'underline',
     },
+};
+
+const EditableSyncPlugin = ({ readOnly }: { readOnly: boolean }) => {
+    const [editor] = useLexicalComposerContext();
+    useEffect(() => {
+        editor.setEditable(!readOnly);
+    }, [editor, readOnly]);
+    return null;
 };
 
 type EditorProps = {
@@ -53,7 +63,8 @@ const Editor = ({ initialState, onChange, readOnly = false, onClickToEdit }: Edi
 
     return (
         <LexicalComposer initialConfig={initialConfig}>
-            <div className="flex h-full flex-col rounded-xl border border-slate-700 bg-slate-900/70">
+            <EditableSyncPlugin readOnly={readOnly} />
+            <div className="flex h-full flex-col rounded-xl border border-edge bg-glass">
                 {!readOnly && <Toolbar />}
                 <div className="relative flex-1">
                     {readOnly && onClickToEdit && (
@@ -62,7 +73,7 @@ const Editor = ({ initialState, onChange, readOnly = false, onClickToEdit }: Edi
                             onClick={onClickToEdit}
                             className="absolute inset-0 z-10 flex cursor-text items-start justify-center pt-3 opacity-0 transition-opacity hover:opacity-100"
                         >
-                            <span className="rounded-full bg-slate-800/90 px-3 py-1 text-slate-300 text-xs shadow">
+                            <span className="rounded-full bg-pill px-3 py-1 text-fg-3 text-xs shadow">
                                 Click to edit
                             </span>
                         </button>
@@ -72,10 +83,10 @@ const Editor = ({ initialState, onChange, readOnly = false, onClickToEdit }: Edi
                             <ContentEditable
                                 data-testid="editor-content"
                                 aria-label="Document editor"
-                                className="min-h-[calc(100vh-220px)] break-words px-6 py-5 text-slate-100 outline-none"
+                                className="min-h-[calc(100vh-220px)] break-words px-6 py-5 text-fg outline-none"
                             />
                         }
-                        placeholder={<div className="px-6 py-5 text-slate-500">Start writing...</div>}
+                        placeholder={<div className="px-6 py-5 text-fg-faint">Start writing...</div>}
                         ErrorBoundary={LexicalErrorBoundary}
                     />
                     <HistoryPlugin />

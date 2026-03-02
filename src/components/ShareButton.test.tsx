@@ -30,11 +30,14 @@ describe('ShareButton', () => {
         expect(onShare).toHaveBeenCalled();
     });
 
-    it('should revert label after 2 seconds', async () => {
-        const { rerender } = render(<ShareButton isCopied={true} onShare={async () => undefined} />);
-        await new Promise((resolve) => setTimeout(resolve, 2100));
-        rerender(<ShareButton isCopied={false} onShare={async () => undefined} />);
+    it('should reflect label based on isCopied prop changes', () => {
+        const { rerender } = render(<ShareButton isCopied={false} onShare={async () => undefined} />);
+        expect(screen.getByText('Share')).toBeInTheDocument();
 
+        rerender(<ShareButton isCopied={true} onShare={async () => undefined} />);
+        expect(screen.getByText('Copied!')).toBeInTheDocument();
+
+        rerender(<ShareButton isCopied={false} onShare={async () => undefined} />);
         expect(screen.getByText('Share')).toBeInTheDocument();
     });
 });

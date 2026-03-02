@@ -1,5 +1,5 @@
 import type { SerializedEditorState } from 'lexical';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { encodeToUrl } from '../codecs';
 
@@ -27,7 +27,7 @@ export const useShareUrl = (): UseShareUrlResult => {
     const [error, setError] = useState<string | null>(null);
     const timerRef = useRef<number | null>(null);
 
-    const resetCopiedState = useCallback(() => {
+    const resetCopiedState = () => {
         if (timerRef.current !== null) {
             window.clearTimeout(timerRef.current);
         }
@@ -36,34 +36,32 @@ export const useShareUrl = (): UseShareUrlResult => {
             setIsCopied(false);
             timerRef.current = null;
         }, COPY_RESET_MS);
-    }, []);
+    };
 
-    const share = useCallback(
-        async (state: SerializedEditorState) => {
-            setError(null);
+    const share = async (state: SerializedEditorState) => {
+        setError(null);
 
-            try {
-                const rawJson = JSON.stringify(state);
-                setContentLength(rawJson.length);
+        try {
+            const rawJson = JSON.stringify(state);
+            setContentLength(rawJson.length);
 
-                const relativeUrl = await encodeToUrl(state);
-                const hash = relativeUrl.split('#')[1] ?? '';
-                const absoluteUrl = `${window.location.origin}${relativeUrl}`;
+            const relativeUrl = await encodeToUrl(state);
+            const hash = relativeUrl.split('#')[1] ?? '';
+            const absoluteUrl = `${window.location.origin}${relativeUrl}`;
 
-                window.history.replaceState(null, '', relativeUrl);
-                await navigator.clipboard.writeText(absoluteUrl);
+            window.history.replaceState(null, '', relativeUrl);
 
-                setUrlLength(hash.length);
-                setUrlBudgetPercent(toBudgetPercent(hash.length));
-                setIsCopied(true);
-                resetCopiedState();
-            } catch (shareError) {
-                setIsCopied(false);
-                setError(shareError instanceof Error ? shareError.message : 'Unable to generate share URL');
-            }
-        },
-        [resetCopiedState],
-    );
+            setUrlLength(hash.length);
+            setUrlBudgetPercent(toBudgetPercent(hash.length));
+
+            await navigator.clipboard.writeText(absoluteUrl);
+            setIsCopied(true);
+            resetCopiedState();
+        } catch (shareError) {
+            setIsCopied(false);
+            setError(shareError instanceof Error ? shareError.message : 'Unable to generate share URL');
+        }
+    };
 
     useEffect(() => {
         const initialHashLength = window.location.hash.slice(1).length;

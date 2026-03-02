@@ -24,3 +24,4 @@ dist-ssr
 *.sw?
 .minimax
 src/vite-env.d.ts
+test-results

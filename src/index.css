@@ -1,7 +1,106 @@
 @import "tailwindcss";
 
 :root {
+    color-scheme: light;
+
+    --t-canvas: transparent;
+    --t-surface: #ffffff;
+    --t-glass: #ffffff;
+    --t-overlay: #f9fafb;
+    --t-subtle: #e2e8f0;
+    --t-subtle-hover: #cbd5e1;
+    --t-muted: #cbd5e1;
+    --t-inset: #f1f5f9;
+    --t-pill: rgba(226, 232, 240, 0.9);
+    --t-inverse: #1e293b;
+    --t-inverse-hover: #334155;
+
+    --t-fg: #1e293b;
+    --t-fg-2: #334155;
+    --t-fg-3: #475569;
+    --t-fg-dim: #64748b;
+    --t-fg-faint: #94a3b8;
+    --t-fg-inverse: #f1f5f9;
+    --t-link: #0369a1;
+    --t-positive: #059669;
+
+    --t-edge: #e2e8f0;
+    --t-edge-accent: #cbd5e1;
+    --t-surface-hover: #f1f5f9;
+
+    --t-err-bg: #fef2f2;
+    --t-err-edge: #fca5a5;
+    --t-err-fg: #dc2626;
+
+    --t-focus: #94a3b8;
+}
+
+.dark {
     color-scheme: dark;
+
+    --t-canvas: #020617;
+    --t-surface: #0f172a;
+    --t-glass: rgba(15, 23, 42, 0.7);
+    --t-overlay: rgba(2, 6, 23, 0.7);
+    --t-subtle: #1e293b;
+    --t-subtle-hover: #334155;
+    --t-muted: #334155;
+    --t-inset: #0f172a;
+    --t-pill: rgba(30, 41, 59, 0.9);
+    --t-inverse: #f1f5f9;
+    --t-inverse-hover: #e2e8f0;
+
+    --t-fg: #f1f5f9;
+    --t-fg-2: #e2e8f0;
+    --t-fg-3: #cbd5e1;
+    --t-fg-dim: #94a3b8;
+    --t-fg-faint: #64748b;
+    --t-fg-inverse: #0f172a;
+    --t-link: #7dd3fc;
+    --t-positive: #34d399;
+
+    --t-edge: #334155;
+    --t-edge-accent: #475569;
+    --t-surface-hover: #0f172a;
+
+    --t-err-bg: rgba(69, 10, 10, 0.4);
+    --t-err-edge: rgba(239, 68, 68, 0.4);
+    --t-err-fg: #fecaca;
+
+    --t-focus: #64748b;
+}
+
+@theme {
+    --color-canvas: var(--t-canvas);
+    --color-surface: var(--t-surface);
+    --color-glass: var(--t-glass);
+    --color-overlay: var(--t-overlay);
+    --color-subtle: var(--t-subtle);
+    --color-subtle-hover: var(--t-subtle-hover);
+    --color-muted: var(--t-muted);
+    --color-inset: var(--t-inset);
+    --color-pill: var(--t-pill);
+    --color-inverse: var(--t-inverse);
+    --color-inverse-hover: var(--t-inverse-hover);
+
+    --color-fg: var(--t-fg);
+    --color-fg-2: var(--t-fg-2);
+    --color-fg-3: var(--t-fg-3);
+    --color-fg-dim: var(--t-fg-dim);
+    --color-fg-faint: var(--t-fg-faint);
+    --color-fg-inverse: var(--t-fg-inverse);
+    --color-link: var(--t-link);
+    --color-positive: var(--t-positive);
+
+    --color-edge: var(--t-edge);
+    --color-edge-accent: var(--t-edge-accent);
+    --color-surface-hover: var(--t-surface-hover);
+
+    --color-err-bg: var(--t-err-bg);
+    --color-err-edge: var(--t-err-edge);
+    --color-err-fg: var(--t-err-fg);
+
+    --color-focus: var(--t-focus);
 }
 
 * {
@@ -12,6 +111,10 @@ body {
     margin: 0;
     min-width: 320px;
     font-family: "JetBrains Mono", "Fira Code", "IBM Plex Sans", sans-serif;
+    background: #f1f5f9;
+}
+
+.dark body {
     background:
         radial-gradient(circle at 20% -10%, rgb(30 41 59 / 0.7), transparent 45%),
         radial-gradient(circle at 80% 0%, rgb(15 23 42 / 0.9), transparent 55%), #020617;

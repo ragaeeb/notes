@@ -21,7 +21,7 @@ const LimitIndicator = ({ percent }: LimitIndicatorProps) => {
 
     return (
         <div className="flex items-center gap-2" data-testid="limit-indicator">
-            <div className="hidden w-20 overflow-hidden rounded-full bg-slate-700 sm:block" style={{ height: '6px' }}>
+            <div className="hidden w-20 overflow-hidden rounded-full bg-muted sm:block" style={{ height: '6px' }}>
                 <div
                     className={cn('h-full transition-all', getColorClass(clampedPercent))}
                     data-testid="limit-indicator-bar"
@@ -33,7 +33,7 @@ const LimitIndicator = ({ percent }: LimitIndicatorProps) => {
                     style={{ width: `${clampedPercent}%` }}
                 />
             </div>
-            <span className="whitespace-nowrap text-slate-400 text-xs">{displayPercent}%</span>
+            <span className="whitespace-nowrap text-fg-dim text-xs">{displayPercent}%</span>
         </div>
     );
 };

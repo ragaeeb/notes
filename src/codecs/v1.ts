@@ -17,7 +17,11 @@ const textEncoder = new TextEncoder();
 const textDecoder = new TextDecoder();
 
 const isSerializedEditorState = (value: unknown): value is SerializedEditorState =>
-    typeof value === 'object' && value !== null && 'root' in value;
+    typeof value === 'object' &&
+    value !== null &&
+    'root' in value &&
+    typeof (value as Record<string, unknown>).root === 'object' &&
+    (value as Record<string, unknown>).root !== null;
 
 const makeHeader = (compressorId: CompressorId): Uint8Array =>
     new Uint8Array([FORMAT_VERSION, compressorId, REPR_FLAGS.LEXICAL_JSON]);

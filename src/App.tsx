@@ -1,9 +1,10 @@
 import type { SerializedEditorState } from 'lexical';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Footer from './components/Footer';
 import LimitIndicator from './components/LimitIndicator';
 import ShareButton from './components/ShareButton';
+import ThemeToggle from './components/ThemeToggle';
 import { Button } from './components/ui/button';
 import {
     Dialog,
@@ -19,10 +20,12 @@ import Editor from './editor/Editor';
 import { EMPTY_EDITOR_STATE } from './editor/emptyState';
 import { useDocument } from './hooks/useDocument';
 import { useShareUrl } from './hooks/useShareUrl';
+import { useTheme } from './hooks/useTheme';
 
 const App = () => {
     const { isLoading, error: documentError, documentVersion, initialState } = useDocument();
     const { share, isCopied, urlLength, urlBudgetPercent, contentLength, error: shareError } = useShareUrl();
+    const { theme, toggle: toggleTheme } = useTheme();
 
     const [editorState, setEditorState] = useState<SerializedEditorState>(EMPTY_EDITOR_STATE);
     const [isUrlLimitDialogDismissed, setIsUrlLimitDialogDismissed] = useState(false);
@@ -34,7 +37,6 @@ const App = () => {
         setIsEditing(!isSharedDocument);
     }, [isSharedDocument]);
 
-    // Sync loaded state for sharing before any edits happen
     useEffect(() => {
         if (initialState) {
             setEditorState(initialState);
@@ -47,30 +49,29 @@ const App = () => {
         }
     }, [urlBudgetPercent]);
 
-    const effectiveInitialState = useMemo(() => {
-        return initialState ?? EMPTY_EDITOR_STATE;
-    }, [initialState]);
+    const effectiveInitialState = initialState ?? EMPTY_EDITOR_STATE;
 
     if (isLoading) {
-        return <div className="app-shell p-6 text-slate-300 text-sm">Loading document...</div>;
+        return <div className="app-shell p-6 text-fg-3 text-sm">Loading document...</div>;
     }
 
     return (
-        <div className="app-shell flex min-h-screen flex-col bg-slate-950 text-slate-100">
-            <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col px-4 py-4">
-                <header className="mb-3 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3">
+        <div className="app-shell flex min-h-screen flex-col bg-canvas text-fg">
+            <div className="mx-auto flex w-full flex-1 flex-col px-4 py-4">
+                <header className="mb-3 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-edge bg-glass px-4 py-3">
                     <div className="flex items-center gap-2">
                         <span className="font-semibold text-lg tracking-tight">notes.</span>
                         <VersionBadge version={documentVersion ?? 'v1'} />
                     </div>
                     <div className="flex items-center gap-3">
                         <LimitIndicator percent={urlBudgetPercent} />
+                        <ThemeToggle theme={theme} onToggle={toggleTheme} />
                         <ShareButton isCopied={isCopied} onShare={() => share(editorState)} />
                     </div>
                 </header>
 
                 {(documentError || shareError) && (
-                    <div className="mb-3 rounded-lg border border-red-500/40 bg-red-950/40 px-3 py-2 text-red-200 text-sm">
+                    <div className="mb-3 rounded-lg border border-err-edge bg-err-bg px-3 py-2 text-err-fg text-sm">
                         {documentError ?? shareError}
                     </div>
                 )}
@@ -84,11 +85,11 @@ const App = () => {
                     />
                 </main>
 
-                <div className="mt-2 flex items-center justify-end gap-4 text-slate-400 text-xs">
+                <div className="mt-2 flex items-center justify-end gap-4 text-fg-dim text-xs">
                     {contentLength > 0 && <span>Content: {contentLength.toLocaleString()} chars</span>}
                     {urlLength > 0 && <span>Encoded: {urlLength.toLocaleString()} chars</span>}
                     {contentLength > 0 && urlLength > 0 && (
-                        <span className="text-emerald-400">
+                        <span className="text-positive">
                             {Math.round((1 - urlLength / contentLength) * 100)}% smaller
                         </span>
                     )}

@@ -459,13 +459,10 @@ describe('collision safety', () => {
     });
 
     it('should have unique aliases within each VALUE_MAP field', () => {
-        for (const [field, map] of Object.entries(VALUE_MAP)) {
+        for (const [_field, map] of Object.entries(VALUE_MAP)) {
             const aliases = Object.values(map);
             const unique = new Set(aliases);
             expect(unique.size).toBe(aliases.length);
-            if (unique.size !== aliases.length) {
-                throw new Error(`Duplicate aliases in VALUE_MAP["${field}"]`);
-            }
         }
     });
 });

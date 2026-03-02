@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test('should share and restore content via /v1/# URL', async ({ browser, page }) => {
+test('should share and restore content via /v1/# URL', async ({ page }) => {
     await page.goto('/v1/');
 
     const editor = page.getByTestId('editor-content');
@@ -12,7 +12,7 @@ test('should share and restore content via /v1/# URL', async ({ browser, page })
     await expect(page).toHaveURL(/\/v1\/#/);
 
     const sharedUrl = page.url();
-    const secondPage = await browser.newPage();
+    const secondPage = await page.context().newPage();
     await secondPage.goto(sharedUrl);
 
     await expect(secondPage.getByText('Hello from e2e share flow')).toBeVisible();
