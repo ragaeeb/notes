@@ -17,19 +17,37 @@ const Toolbar = () => {
 
     return (
         <div className="flex flex-wrap items-center gap-2 border-slate-700 border-b bg-slate-950/70 px-4 py-3">
-            <Button size="sm" variant="outline" onClick={() => dispatch(UNDO_COMMAND, undefined)} type="button">
+            <Button
+                size="sm"
+                variant="outline"
+                onClick={() => dispatch(UNDO_COMMAND, undefined)}
+                type="button"
+                aria-label="Undo"
+            >
                 Undo
             </Button>
-            <Button size="sm" variant="outline" onClick={() => dispatch(REDO_COMMAND, undefined)} type="button">
+            <Button
+                size="sm"
+                variant="outline"
+                onClick={() => dispatch(REDO_COMMAND, undefined)}
+                type="button"
+                aria-label="Redo"
+            >
                 Redo
             </Button>
-            <Button size="sm" variant="outline" onClick={() => formatText('bold')} type="button">
+            <Button size="sm" variant="outline" onClick={() => formatText('bold')} type="button" aria-label="Bold">
                 B
             </Button>
-            <Button size="sm" variant="outline" onClick={() => formatText('italic')} type="button">
+            <Button size="sm" variant="outline" onClick={() => formatText('italic')} type="button" aria-label="Italic">
                 I
             </Button>
-            <Button size="sm" variant="outline" onClick={() => formatText('underline')} type="button">
+            <Button
+                size="sm"
+                variant="outline"
+                onClick={() => formatText('underline')}
+                type="button"
+                aria-label="Underline"
+            >
                 U
             </Button>
             <Button
@@ -37,6 +55,7 @@ const Toolbar = () => {
                 variant="outline"
                 onClick={() => dispatch(INSERT_UNORDERED_LIST_COMMAND, undefined)}
                 type="button"
+                aria-label="Bulleted list"
             >
                 •
             </Button>
@@ -45,10 +64,17 @@ const Toolbar = () => {
                 variant="outline"
                 onClick={() => dispatch(INSERT_ORDERED_LIST_COMMAND, undefined)}
                 type="button"
+                aria-label="Numbered list"
             >
                 1.
             </Button>
-            <Button size="sm" variant="outline" onClick={() => formatText('code')} type="button">
+            <Button
+                size="sm"
+                variant="outline"
+                onClick={() => formatText('code')}
+                type="button"
+                aria-label="Inline code"
+            >
                 {'<>'}
             </Button>
         </div>

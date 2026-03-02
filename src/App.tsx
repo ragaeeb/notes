@@ -22,15 +22,30 @@ import { useShareUrl } from './hooks/useShareUrl';
 
 const App = () => {
     const { isLoading, error: documentError, documentVersion, initialState } = useDocument();
-    const { share, isCopied, urlLength, urlBudgetPercent, error: shareError } = useShareUrl();
+    const { share, isCopied, urlLength, urlBudgetPercent, contentLength, error: shareError } = useShareUrl();
 
     const [editorState, setEditorState] = useState<SerializedEditorState>(EMPTY_EDITOR_STATE);
+    const [isUrlLimitDialogDismissed, setIsUrlLimitDialogDismissed] = useState(false);
 
+    const isSharedDocument = initialState !== null;
+    const [isEditing, setIsEditing] = useState(!isSharedDocument);
+
+    useEffect(() => {
+        setIsEditing(!isSharedDocument);
+    }, [isSharedDocument]);
+
+    // Sync loaded state for sharing before any edits happen
     useEffect(() => {
         if (initialState) {
             setEditorState(initialState);
         }
     }, [initialState]);
+
+    useEffect(() => {
+        if (urlBudgetPercent < 95) {
+            setIsUrlLimitDialogDismissed(false);
+        }
+    }, [urlBudgetPercent]);
 
     const effectiveInitialState = useMemo(() => {
         return initialState ?? EMPTY_EDITOR_STATE;
@@ -41,9 +56,9 @@ const App = () => {
     }
 
     return (
-        <div className="app-shell min-h-screen bg-slate-950 text-slate-100">
-            <div className="mx-auto flex w-full max-w-5xl flex-col px-4 py-6">
-                <header className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3">
+        <div className="app-shell flex min-h-screen flex-col bg-slate-950 text-slate-100">
+            <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col px-4 py-4">
+                <header className="mb-3 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3">
                     <div className="flex items-center gap-2">
                         <span className="font-semibold text-lg tracking-tight">notes.</span>
                         <VersionBadge version={documentVersion ?? 'v1'} />
@@ -61,15 +76,35 @@ const App = () => {
                 )}
 
                 <main className="flex-1">
-                    <Editor initialState={effectiveInitialState} onChange={setEditorState} />
+                    <Editor
+                        initialState={effectiveInitialState}
+                        onChange={setEditorState}
+                        readOnly={!isEditing}
+                        onClickToEdit={() => setIsEditing(true)}
+                    />
                 </main>
 
-                <div className="mt-3 text-right text-slate-400 text-xs">Encoded hash length: {urlLength}</div>
+                <div className="mt-2 flex items-center justify-end gap-4 text-slate-400 text-xs">
+                    {contentLength > 0 && <span>Content: {contentLength.toLocaleString()} chars</span>}
+                    {urlLength > 0 && <span>Encoded: {urlLength.toLocaleString()} chars</span>}
+                    {contentLength > 0 && urlLength > 0 && (
+                        <span className="text-emerald-400">
+                            {Math.round((1 - urlLength / contentLength) * 100)}% smaller
+                        </span>
+                    )}
+                </div>
 
                 <Footer />
             </div>
 
-            <Dialog open={urlBudgetPercent >= 95}>
+            <Dialog
+                open={urlBudgetPercent >= 95 && !isUrlLimitDialogDismissed}
+                onOpenChange={(open) => {
+                    if (!open) {
+                        setIsUrlLimitDialogDismissed(true);
+                    }
+                }}
+            >
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle>URL Near Limit</DialogTitle>

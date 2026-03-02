@@ -32,10 +32,16 @@ const editorTheme = {
     },
 };
 
-type EditorProps = { initialState: SerializedEditorState | null; onChange: (state: SerializedEditorState) => void };
+type EditorProps = {
+    initialState: SerializedEditorState | null;
+    onChange: (state: SerializedEditorState) => void;
+    readOnly?: boolean;
+    onClickToEdit?: () => void;
+};
 
-const Editor = ({ initialState, onChange }: EditorProps) => {
+const Editor = ({ initialState, onChange, readOnly = false, onClickToEdit }: EditorProps) => {
     const initialConfig = {
+        editable: !readOnly,
         editorState: JSON.stringify(initialState ?? EMPTY_EDITOR_STATE),
         namespace: 'notes-editor',
         nodes: [HeadingNode, QuoteNode, ListNode, ListItemNode, LinkNode, CodeNode, CodeHighlightNode],
@@ -47,22 +53,33 @@ const Editor = ({ initialState, onChange }: EditorProps) => {
 
     return (
         <LexicalComposer initialConfig={initialConfig}>
-            <div className="rounded-xl border border-slate-700 bg-slate-900/70">
-                <Toolbar />
-                <div className="min-h-[420px]">
+            <div className="flex h-full flex-col rounded-xl border border-slate-700 bg-slate-900/70">
+                {!readOnly && <Toolbar />}
+                <div className="relative flex-1">
+                    {readOnly && onClickToEdit && (
+                        <button
+                            type="button"
+                            onClick={onClickToEdit}
+                            className="absolute inset-0 z-10 flex cursor-text items-start justify-center pt-3 opacity-0 transition-opacity hover:opacity-100"
+                        >
+                            <span className="rounded-full bg-slate-800/90 px-3 py-1 text-slate-300 text-xs shadow">
+                                Click to edit
+                            </span>
+                        </button>
+                    )}
                     <RichTextPlugin
                         contentEditable={
                             <ContentEditable
                                 data-testid="editor-content"
                                 aria-label="Document editor"
-                                className="min-h-[420px] break-words px-6 py-5 text-slate-100 outline-none"
+                                className="min-h-[calc(100vh-220px)] break-words px-6 py-5 text-slate-100 outline-none"
                             />
                         }
                         placeholder={<div className="px-6 py-5 text-slate-500">Start writing...</div>}
                         ErrorBoundary={LexicalErrorBoundary}
                     />
                     <HistoryPlugin />
-                    <AutoFocusPlugin />
+                    {!readOnly && <AutoFocusPlugin />}
                     <ListPlugin />
                     <LinkPlugin />
                     <MarkdownShortcutPlugin transformers={TRANSFORMERS} />

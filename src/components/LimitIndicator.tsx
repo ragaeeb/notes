@@ -15,21 +15,25 @@ const getColorClass = (percent: number): string => {
 };
 
 const LimitIndicator = ({ percent }: LimitIndicatorProps) => {
-    const clampedPercent = Math.max(0, Math.min(percent, 100));
+    const safePercent = Number.isFinite(percent) ? percent : 0;
+    const clampedPercent = Math.max(0, Math.min(safePercent, 100));
+    const displayPercent = Math.round(clampedPercent);
 
     return (
-        <div className="w-full max-w-[220px]" data-testid="limit-indicator">
-            <div className="mb-1 flex items-center justify-between text-slate-300 text-xs">
-                <span>Budget</span>
-                <span>{Math.round(clampedPercent)}%</span>
-            </div>
-            <div className="h-2 w-full overflow-hidden rounded-full bg-slate-700">
+        <div className="flex items-center gap-2" data-testid="limit-indicator">
+            <div className="hidden w-20 overflow-hidden rounded-full bg-slate-700 sm:block" style={{ height: '6px' }}>
                 <div
                     className={cn('h-full transition-all', getColorClass(clampedPercent))}
                     data-testid="limit-indicator-bar"
+                    role="progressbar"
+                    aria-label="URL budget usage"
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    aria-valuenow={displayPercent}
                     style={{ width: `${clampedPercent}%` }}
                 />
             </div>
+            <span className="whitespace-nowrap text-slate-400 text-xs">{displayPercent}%</span>
         </div>
     );
 };

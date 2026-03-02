@@ -81,7 +81,11 @@ const initBrotli = (): Promise<BrotliModule | null> => {
                 brotliModule = m;
                 return m;
             })
-            .catch(() => null);
+            .catch((err) => {
+                console.warn('Brotli WASM initialization failed:', err);
+                brotliPromise = null;
+                return null;
+            });
     }
     return brotliPromise;
 };

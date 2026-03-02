@@ -8,15 +8,17 @@ import {
     VALUE_MAP,
 } from './v1-constants';
 
-const isPlainObject = (value: unknown): value is Record<string, unknown> =>
-    typeof value === 'object' && value !== null && !Array.isArray(value);
+const isPlainObject = (value: unknown): value is Record<string, unknown> => {
+    if (typeof value !== 'object' || value === null || Array.isArray(value)) {
+        return false;
+    }
+    const proto = Object.getPrototypeOf(value);
+    return proto === Object.prototype || proto === null;
+};
 
 const getNodeType = (obj: Record<string, unknown>): string | undefined => {
     if (typeof obj.type === 'string') {
         return obj.type;
-    }
-    if (typeof obj.t === 'string') {
-        return obj.t;
     }
     return undefined;
 };
@@ -39,7 +41,7 @@ const stripNodeDefaults = (
 ): Record<string, unknown> => {
     const out: Record<string, unknown> = {};
     for (const [key, val] of Object.entries(obj)) {
-        if (key in defaults && val === defaults[key]) {
+        if (Object.hasOwn(defaults, key) && val === defaults[key]) {
             continue;
         }
         out[key] = stripDefaultsDeep(val);
@@ -78,11 +80,11 @@ const restoreNodeDefaults = (
     const restored: Record<string, unknown> = {};
 
     for (const [key, def] of Object.entries(defaults)) {
-        restored[key] = key in obj ? restoreDefaultsDeep(obj[key]) : def;
+        restored[key] = Object.hasOwn(obj, key) ? restoreDefaultsDeep(obj[key]) : def;
     }
 
     for (const [key, val] of Object.entries(obj)) {
-        if (!(key in restored)) {
+        if (!Object.hasOwn(restored, key)) {
             restored[key] = restoreDefaultsDeep(val);
         }
     }
@@ -126,7 +128,7 @@ const minifyValuesDeep = (value: unknown): unknown => {
     for (const [key, val] of Object.entries(value)) {
         let mapped = minifyValuesDeep(val);
         const fieldMap = VALUE_MAP[key];
-        if (fieldMap && typeof mapped === 'string' && mapped in fieldMap) {
+        if (fieldMap && typeof mapped === 'string' && Object.hasOwn(fieldMap, mapped)) {
             mapped = fieldMap[mapped];
         }
         out[key] = mapped;
@@ -150,7 +152,7 @@ const expandValuesDeep = (value: unknown): unknown => {
     for (const [key, val] of Object.entries(value)) {
         let mapped = expandValuesDeep(val);
         const reverseMap = REVERSE_VALUE_MAP[key];
-        if (reverseMap && typeof mapped === 'string' && mapped in reverseMap) {
+        if (reverseMap && typeof mapped === 'string' && Object.hasOwn(reverseMap, mapped)) {
             mapped = reverseMap[mapped];
         }
         out[key] = mapped;

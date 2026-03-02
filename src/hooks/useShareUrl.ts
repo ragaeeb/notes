@@ -11,6 +11,7 @@ export type UseShareUrlResult = {
     isCopied: boolean;
     urlLength: number;
     urlBudgetPercent: number;
+    contentLength: number;
     error: string | null;
 };
 
@@ -22,6 +23,7 @@ export const useShareUrl = (): UseShareUrlResult => {
     const [isCopied, setIsCopied] = useState(false);
     const [urlLength, setUrlLength] = useState(0);
     const [urlBudgetPercent, setUrlBudgetPercent] = useState(0);
+    const [contentLength, setContentLength] = useState(0);
     const [error, setError] = useState<string | null>(null);
     const timerRef = useRef<number | null>(null);
 
@@ -41,6 +43,9 @@ export const useShareUrl = (): UseShareUrlResult => {
             setError(null);
 
             try {
+                const rawJson = JSON.stringify(state);
+                setContentLength(rawJson.length);
+
                 const relativeUrl = await encodeToUrl(state);
                 const hash = relativeUrl.split('#')[1] ?? '';
                 const absoluteUrl = `${window.location.origin}${relativeUrl}`;
@@ -72,5 +77,5 @@ export const useShareUrl = (): UseShareUrlResult => {
         };
     }, []);
 
-    return { error, isCopied, share, urlBudgetPercent, urlLength };
+    return { contentLength, error, isCopied, share, urlBudgetPercent, urlLength };
 };

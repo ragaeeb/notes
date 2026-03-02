@@ -75,7 +75,11 @@ export const VALUE_MAP: Record<string, Record<string, string>> = {
     },
 };
 
-export const REVERSE_VALUE_MAP: Record<string, Record<string, string>> = {};
-for (const [field, map] of Object.entries(VALUE_MAP)) {
-    REVERSE_VALUE_MAP[field] = Object.fromEntries(Object.entries(map).map(([k, v]) => [v, k]));
-}
+export const REVERSE_VALUE_MAP: Readonly<Record<string, Record<string, string>>> = Object.freeze(
+    Object.fromEntries(
+        Object.entries(VALUE_MAP).map(([field, map]) => [
+            field,
+            Object.freeze(Object.fromEntries(Object.entries(map).map(([k, v]) => [v, k]))),
+        ]),
+    ),
+);

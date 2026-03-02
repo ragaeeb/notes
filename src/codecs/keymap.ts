@@ -26,7 +26,11 @@ const REVERSE_KEY_MAP: Record<string, string> = Object.fromEntries(
 );
 
 const isPlainObject = (value: unknown): value is Record<string, unknown> => {
-    return typeof value === 'object' && value !== null && !Array.isArray(value);
+    if (typeof value !== 'object' || value === null || Array.isArray(value)) {
+        return false;
+    }
+    const proto = Object.getPrototypeOf(value);
+    return proto === Object.prototype || proto === null;
 };
 
 const renameKeysDeep = (value: unknown, map: Record<string, string>): unknown => {
@@ -38,12 +42,12 @@ const renameKeysDeep = (value: unknown, map: Record<string, string>): unknown =>
         return value;
     }
 
-    return Object.fromEntries(
-        Object.entries(value).map(([key, nestedValue]) => {
-            const renamedKey = map[key] ?? key;
-            return [renamedKey, renameKeysDeep(nestedValue, map)];
-        }),
-    );
+    const out: Record<string, unknown> = {};
+    for (const [key, nestedValue] of Object.entries(value)) {
+        const renamedKey = Object.hasOwn(map, key) ? map[key] : key;
+        out[renamedKey] = renameKeysDeep(nestedValue, map);
+    }
+    return out;
 };
 
 export const minifyKeys = <T>(value: T): T => {

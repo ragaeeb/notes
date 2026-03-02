@@ -1,7 +1,3 @@
-import type { SerializedEditorState } from 'lexical';
-
-export type DocumentPayload = { v: 1; content: SerializedEditorState; title?: string; codec?: 'brotli' | 'deflate' };
-
 export type CodecVersion = 'v1';
 
 export type DetectVersionResult = CodecVersion | 'unknown';

@@ -2,9 +2,16 @@ import type { SerializedEditorState } from 'lexical';
 import { getBrotliIfAvailable, getDeflateCompressor } from '../lib/compression';
 import { base64urlToUint8, uint8ToBase64url } from './base64url';
 import { expandKeys, minifyKeys } from './keymap';
-import { COMPRESSOR_ID, FORMAT_VERSION, HEADER_SIZE, MAX_DECOMPRESSED_BYTES, REPR_FLAGS } from './v1-constants';
-import { expandValues, minifyValues, restoreDefaults, stripDefaults } from './v1-transforms';
 import { CodecError, type CompressorId, type PayloadHeader } from './types';
+import {
+    BROTLI_QUALITY,
+    COMPRESSOR_ID,
+    FORMAT_VERSION,
+    HEADER_SIZE,
+    MAX_DECOMPRESSED_BYTES,
+    REPR_FLAGS,
+} from './v1-constants';
+import { expandValues, minifyValues, restoreDefaults, stripDefaults } from './v1-transforms';
 
 const textEncoder = new TextEncoder();
 const textDecoder = new TextDecoder();
@@ -30,7 +37,12 @@ const readHeader = (data: Uint8Array): PayloadHeader => {
         throw new CodecError('This share link uses an unsupported compression format.');
     }
 
-    return { compressorId, formatVersion, reprFlags: data[2] };
+    const reprFlags = data[2];
+    if (reprFlags !== REPR_FLAGS.LEXICAL_JSON) {
+        throw new CodecError('This share link uses an unsupported representation format.');
+    }
+
+    return { compressorId, formatVersion, reprFlags };
 };
 
 export const encode = async (state: SerializedEditorState): Promise<string> => {
@@ -49,7 +61,7 @@ export const encode = async (state: SerializedEditorState): Promise<string> => {
     let compressorId: CompressorId;
 
     if (brotli) {
-        compressed = brotli.compress(new Uint8Array(raw), { quality: 11 });
+        compressed = brotli.compress(raw, { quality: BROTLI_QUALITY });
         compressorId = COMPRESSOR_ID.BROTLI;
     } else {
         const deflate = getDeflateCompressor();
@@ -90,7 +102,7 @@ export const decode = async (hash: string): Promise<SerializedEditorState> => {
             );
         }
         try {
-            decompressed = brotli.decompress(new Uint8Array(compressed));
+            decompressed = brotli.decompress(compressed);
         } catch {
             throw new CodecError('This share link appears to be corrupted and cannot be decompressed.');
         }
@@ -103,6 +115,10 @@ export const decode = async (hash: string): Promise<SerializedEditorState> => {
         }
     }
 
+    // Guard runs post-decompression. Brotli WASM decompresses synchronously so
+    // a malicious payload could spike memory before this check. In practice, URL
+    // fragment size limits (~64KB encoded) cap the compressed input, bounding the
+    // realistic decompression ratio.
     if (decompressed.byteLength > MAX_DECOMPRESSED_BYTES) {
         throw new CodecError('This document exceeds the maximum supported size (2 MB).');
     }

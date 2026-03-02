@@ -329,8 +329,8 @@ describe('minifyValues', () => {
     });
 
     it('should minify direction values on the "d" key', () => {
-        const input = { d: 'rtl' };
-        expect(minifyValues(input)).toEqual({ d: 'R' });
+        expect(minifyValues({ d: 'rtl' })).toEqual({ d: 'R' });
+        expect(minifyValues({ d: 'ltr' })).toEqual({ d: 'L' });
     });
 
     it('should minify mode values on the "m" key', () => {
@@ -399,6 +399,48 @@ describe('minifyValues / expandValues round-trip', () => {
             t: 'root',
         };
         expect(expandValues(minifyValues(input))).toEqual(input);
+    });
+});
+
+// ---- Object.prototype safety ----
+
+describe('Object.prototype safety', () => {
+    it('should not corrupt text containing "toString"', () => {
+        const doc = wrapRoot([paragraphNode([textNode('toString')])]);
+        const roundTripped = restoreDefaults(stripDefaults(doc));
+        expect(roundTripped).toEqual(doc);
+    });
+
+    it('should not corrupt text containing "constructor"', () => {
+        const doc = wrapRoot([paragraphNode([textNode('constructor')])]);
+        const roundTripped = restoreDefaults(stripDefaults(doc));
+        expect(roundTripped).toEqual(doc);
+    });
+
+    it('should not corrupt text containing "valueOf"', () => {
+        const doc = wrapRoot([paragraphNode([textNode('valueOf')])]);
+        const roundTripped = restoreDefaults(stripDefaults(doc));
+        expect(roundTripped).toEqual(doc);
+    });
+
+    it('should not corrupt nodes with prototype-named custom fields', () => {
+        const doc = wrapRoot([
+            { ...paragraphNode([textNode('test')]), constructor: 'custom', toString: 'data' },
+        ]);
+        const roundTripped = restoreDefaults(stripDefaults(doc));
+        expect(roundTripped).toEqual(doc);
+    });
+
+    it('should not corrupt value minification with prototype keys', () => {
+        const input = { t: 'toString' };
+        const result = minifyValues(input);
+        expect(result).toEqual({ t: 'toString' });
+    });
+
+    it('should not corrupt value expansion with prototype keys', () => {
+        const input = { t: 'constructor' };
+        const result = expandValues(input);
+        expect(result).toEqual({ t: 'constructor' });
     });
 });
 

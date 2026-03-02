@@ -230,6 +230,14 @@ describe('v1.decode', () => {
         await expect(decode(bad)).rejects.toThrow(/unsupported compression/);
     });
 
+    it('should throw CodecError on unsupported repr flags', async () => {
+        mockBrotliAvailable();
+        const { decode } = await import(`./v1?case=${Math.random()}`);
+
+        const bad = uint8ToBase64url(new Uint8Array([0x01, 0x01, 0xFF, 0x00]));
+        await expect(decode(bad)).rejects.toThrow(/unsupported representation/);
+    });
+
     it('should throw CodecError when Brotli payload but WASM unavailable', async () => {
         mockBrotliAvailable();
         const { encode } = await import(`./v1?case=${Math.random()}`);
