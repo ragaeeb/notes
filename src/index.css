@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+:root {
+    color-scheme: dark;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    font-family: "JetBrains Mono", "Fira Code", "IBM Plex Sans", sans-serif;
+    background:
+        radial-gradient(circle at 20% -10%, rgb(30 41 59 / 0.7), transparent 45%),
+        radial-gradient(circle at 80% 0%, rgb(15 23 42 / 0.9), transparent 55%), #020617;
+}
+
+a {
+    color: inherit;
+}
+
+.app-shell {
+    min-height: 100vh;
+}
