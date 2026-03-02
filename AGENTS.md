@@ -118,3 +118,11 @@ Decompression bomb guard: payloads exceeding 2 MB decompressed are rejected.
 ## Deployment
 
 `main` branch deploys to Cloudflare Pages for `notes.ilmtest.io`.
+GitHub deploy workflow uses Wrangler with `--project-name=notes`.
+Required GitHub Action secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`.
+
+## CI/CD Workflows
+
+- `.github/workflows/build.yml`: CI only. Runs `bun run build`, `bun test --coverage --coverage-reporter=lcov`, then uploads `coverage/lcov.info` to Codecov.
+- `.github/workflows/release.yml`: Release only. Runs semantic-release on `main` to manage version/changelog/release automation.
+- `.github/workflows/deploy.yml`: Deploy only. Builds and deploys `dist/` to Cloudflare Pages via Wrangler.

@@ -86,13 +86,71 @@ bun test --coverage
 bun run test:e2e
 ```
 
+## CI/CD
+
+GitHub Actions are split by responsibility:
+
+- `.github/workflows/build.yml`: CI only (build + unit/integration tests + lcov upload to Codecov)
+- `.github/workflows/release.yml`: Semantic Release only (versioning, changelog, GitHub release)
+- `.github/workflows/deploy.yml`: Cloudflare Pages deploy only (build + `wrangler pages deploy`)
+
 ## Deployment
 
-Push to `main`:
+### Option A: Cloudflare Pages via Wrangler CLI (recommended fallback)
 
-- CI runs tests and build
-- Cloudflare Pages deploy workflow publishes `dist`
-- SPA routing is handled by `public/_redirects`
+If Git integration is unavailable/broken, deploy directly from local `dist/`:
+
+```bash
+# one-time auth
+bunx wrangler login
+
+# one-time project creation (skip if it already exists)
+bunx wrangler pages project create notes
+
+# build + deploy
+bun run build
+bunx wrangler pages deploy dist --project-name=notes
+```
+
+Then in Cloudflare Dashboard:
+
+1. Open your Pages project (`notes`)
+2. Go to **Custom domains**
+3. Add `notes.ilmtest.io`
+
+### Option B: Git-integrated Pages deploy
+
+If Git integration is working:
+
+1. Connect repo in Cloudflare Pages
+2. Build command: `bun run build`
+3. Output directory: `dist`
+4. Keep SPA routing via `public/_redirects`
+
+### GitHub Actions deploy secrets (for `.github/workflows/deploy.yml`)
+
+Set these in GitHub: **Repo Settings -> Secrets and variables -> Actions -> New repository secret**
+
+1. `CLOUDFLARE_API_TOKEN`
+   - Cloudflare Dashboard -> **My Profile** -> **API Tokens** -> **Create Token** -> **Use template** -> **Edit Cloudflare Workers**
+   - On the token form, use these values:
+     - **Permissions**: keep the template defaults (do not remove entries)
+     - **Account Resources**: `Include` -> select the account that owns the `notes` Pages project
+     - **Zone Resources**: `Include` -> `All zones` (or select only `ilmtest.io`)
+     - **Client IP Address Filtering**: leave empty
+     - **TTL**: no expiry (recommended for CI), or set an expiry if your team rotates tokens
+   - Click **Continue to summary** -> **Create Token**
+   - Copy the token immediately and save it as GitHub secret `CLOUDFLARE_API_TOKEN`
+2. `CLOUDFLARE_ACCOUNT_ID`
+   - Cloudflare Dashboard -> right sidebar under **Account ID** (for the same account selected above)
+   - Or run `bunx wrangler whoami` after `bunx wrangler login` and copy the account ID
+   - Save it as GitHub secret `CLOUDFLARE_ACCOUNT_ID`
+
+Workflow command is:
+
+```bash
+bunx wrangler pages deploy dist --project-name=notes
+```
 
 ## Credits
 

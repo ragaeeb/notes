@@ -1,21 +1,24 @@
 import { expect, test } from '@playwright/test';
+import { e2eDescribe } from './utils';
 
-test('should share and restore content via /v1/# URL', async ({ page }) => {
-    await page.goto('/v1/');
+e2eDescribe('share flow', () => {
+    test('should share and restore content via /v1/# URL', async ({ page }) => {
+        await page.goto('/v1/');
 
-    const editor = page.getByTestId('editor-content');
-    await editor.click();
-    await editor.fill('Hello from e2e share flow');
+        const editor = page.getByTestId('editor-content');
+        await editor.click();
+        await editor.fill('Hello from e2e share flow');
 
-    await page.getByTestId('share-button').click();
+        await page.getByTestId('share-button').click();
 
-    await expect(page).toHaveURL(/\/v1\/#/);
+        await expect(page).toHaveURL(/\/v1\/#/);
 
-    const sharedUrl = page.url();
-    const secondPage = await page.context().newPage();
-    await secondPage.goto(sharedUrl);
+        const sharedUrl = page.url();
+        const secondPage = await page.context().newPage();
+        await secondPage.goto(sharedUrl);
 
-    await expect(secondPage.getByText('Hello from e2e share flow')).toBeVisible();
+        await expect(secondPage.getByText('Hello from e2e share flow')).toBeVisible();
 
-    await secondPage.close();
+        await secondPage.close();
+    });
 });

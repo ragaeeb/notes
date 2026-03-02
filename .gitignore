@@ -25,3 +25,4 @@ dist-ssr
 .minimax
 src/vite-env.d.ts
 test-results
+coverage

@@ -75,8 +75,7 @@
         "lint:fix": "bunx biome check --write src",
         "preview": "vite preview",
         "test": "bun test src",
-        "test:coverage": "bun test --coverage src",
-        "test:e2e": "playwright test"
+        "test:e2e": "RUN_E2E=true playwright test"
     },
     "type": "module",
     "version": "1.0.0"
