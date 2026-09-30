@@ -1,30 +1,29 @@
 import type { SerializedEditorState } from 'lexical';
+import { ENABLE_CM, WRITER_VERSION } from './config';
 import type { DetectVersionResult } from './types';
-import { decode as decodeV1, encode as encodeV1 } from './v1';
+import { runCodecJob } from './worker-client';
 
 export const detectVersion = (pathname: string): DetectVersionResult => {
     if (pathname === '/v1' || pathname.startsWith('/v1/')) {
         return 'v1';
     }
-
+    if (pathname === '/v2' || pathname.startsWith('/v2/')) {
+        return 'v2';
+    }
     return 'unknown';
 };
-
-export const decodeFromUrl = async (): Promise<SerializedEditorState | null> => {
-    const hash = window.location.hash.slice(1);
-    if (!hash) {
-        return null;
-    }
-
+export const decodeFromUrl = async (signal?: AbortSignal): Promise<SerializedEditorState | null> => {
+    const fragment = window.location.hash.slice(1);
     const version = detectVersion(window.location.pathname);
-    if (version !== 'v1') {
+    if (!fragment || version === 'unknown') {
         return null;
     }
-
-    return decodeV1(hash);
+    return (await runCodecJob({ fragment, operation: 'decode', version }, { signal })) as SerializedEditorState;
 };
-
-export const encodeToUrl = async (state: SerializedEditorState): Promise<string> => {
-    const encoded = await encodeV1(state);
-    return `/v1/#${encoded}`;
+export const encodeToUrl = async (state: SerializedEditorState, signal?: AbortSignal): Promise<string> => {
+    const encoded = await runCodecJob(
+        { includeCm: ENABLE_CM, operation: 'encode', state, version: WRITER_VERSION },
+        { signal },
+    );
+    return `/${WRITER_VERSION}/#${encoded}`;
 };

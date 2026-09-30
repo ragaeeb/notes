@@ -1,0 +1,12 @@
+eval-01: v1=282, no-CM=204, v2=133, 254ms, 0 candidate errors
+eval-02: v1=302, no-CM=157, v2=125, 171ms, 0 candidate errors
+eval-03: v1=279, no-CM=171, v2=169, 172ms, 0 candidate errors
+eval-04: v1=280, no-CM=175, v2=147, 167ms, 0 candidate errors
+eval-05: v1=302, no-CM=204, v2=165, 167ms, 0 candidate errors
+{"output":"docs/implementation/evidence/native-evaluation-shipping.json","summary":{"documents":5,"candidates":498,"candidateErrors":0,"noGrowthFailures":0,"selectionMismatches":0,"exactRoundTripFailures":0}}
+eval-06: v1=310, no-CM=199, v2=128, 416ms, 0 candidate errors
+eval-07: v1=358, no-CM=243, v2=152, 388ms, 0 candidate errors
+eval-08: v1=150, no-CM=51, v2=35, 162ms, 0 candidate errors
+eval-09: v1=199, no-CM=107, v2=83, 162ms, 0 candidate errors
+eval-10: v1=158, no-CM=93, v2=57, 157ms, 0 candidate errors
+{"output":"docs/implementation/evidence/native-evaluation-shipping.json","summary":{"documents":10,"candidates":927,"candidateErrors":0,"noGrowthFailures":0,"selectionMismatches":0,"exactRoundTripFailures":0}}

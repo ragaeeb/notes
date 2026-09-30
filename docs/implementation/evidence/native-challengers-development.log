@@ -1,0 +1,27 @@
+dev-01: 24 verified challenger candidates
+dev-02: 28 verified challenger candidates
+dev-03: 28 verified challenger candidates
+dev-04: 28 verified challenger candidates
+dev-05: 24 verified challenger candidates
+{"output":"docs/implementation/evidence/native-challengers-development.json","summary":{"current":{"documents":5,"candidates":33,"uniqueWinsOverCurrentCombined":[]},"30k":{"documents":5,"candidates":33,"uniqueWinsOverCurrentCombined":[]},"60k":{"documents":5,"candidates":33,"uniqueWinsOverCurrentCombined":[]},"dictionary":{"documents":5,"candidates":33,"uniqueWinsOverCurrentCombined":[]}}}
+dev-06: 28 verified challenger candidates
+dev-07: 28 verified challenger candidates
+dev-08: 28 verified challenger candidates
+dev-11: 24 verified challenger candidates
+{"output":"docs/implementation/evidence/native-challengers-development.json","summary":{"current":{"documents":9,"candidates":60,"uniqueWinsOverCurrentCombined":[]},"30k":{"documents":9,"candidates":60,"uniqueWinsOverCurrentCombined":[]},"60k":{"documents":9,"candidates":60,"uniqueWinsOverCurrentCombined":[]},"dictionary":{"documents":9,"candidates":60,"uniqueWinsOverCurrentCombined":[]}}}
+dev-12: 28 verified challenger candidates
+dev-13: 28 verified challenger candidates
+dev-15: 28 verified challenger candidates
+dev-16: 28 verified challenger candidates
+dev-17: 28 verified challenger candidates
+dev-18: 28 verified challenger candidates
+dev-19: 24 verified challenger candidates
+{"output":"docs/implementation/evidence/native-challengers-development.json","summary":{"current":{"documents":16,"candidates":108,"uniqueWinsOverCurrentCombined":[]},"30k":{"documents":16,"candidates":108,"uniqueWinsOverCurrentCombined":[]},"60k":{"documents":16,"candidates":108,"uniqueWinsOverCurrentCombined":[]},"dictionary":{"documents":16,"candidates":108,"uniqueWinsOverCurrentCombined":[]}}}
+dev-20: 28 verified challenger candidates
+dev-21: 20 verified challenger candidates
+supplemental-rich: 24 verified challenger candidates
+supplemental-style: 20 verified challenger candidates
+{"output":"docs/implementation/evidence/native-challengers-development.json","summary":{"current":{"documents":20,"candidates":131,"uniqueWinsOverCurrentCombined":[]},"30k":{"documents":20,"candidates":131,"uniqueWinsOverCurrentCombined":[]},"60k":{"documents":20,"candidates":131,"uniqueWinsOverCurrentCombined":[]},"dictionary":{"documents":20,"candidates":131,"uniqueWinsOverCurrentCombined":[]}}}
+supplemental-empty-root: 20 verified challenger candidates
+supplemental-alias: 16 verified challenger candidates
+{"output":"docs/implementation/evidence/native-challengers-development.json","summary":{"current":{"documents":22,"candidates":140,"uniqueWinsOverCurrentCombined":[]},"30k":{"documents":22,"candidates":140,"uniqueWinsOverCurrentCombined":[]},"60k":{"documents":22,"candidates":140,"uniqueWinsOverCurrentCombined":[]},"dictionary":{"documents":22,"candidates":140,"uniqueWinsOverCurrentCombined":[]}}}

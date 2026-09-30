@@ -18,13 +18,13 @@ Zero-backend document sharing app. The entire document is stored in the URL frag
 - Rich text editing with Lexical
 - Instant sharing via URL fragment
 - No backend, no auth, no database
-- Versioned codec routing (`/v1/`)
+- Permanent v1 and v2 readers (`/v1/`, `/v2/`); qualification-gated v2 writer
 - URL budget indicator with warning threshold
 - Dark-mode-first UI
 
 ## How It Works
 
-URL is the storage layer. A 3-byte header precedes each compressed payload for forward compatibility.
+URL is the storage layer. The existing v1 format below uses a 3-byte header. The implemented v2 format uses a one-character tag and exact-losslessness candidate selection; production activation is gated as described below.
 
 **Encode path:**
 
@@ -58,18 +58,30 @@ Codec version is in the path. Decoder support for existing versions must stay fo
 
 ## Payload Limits
 
-| Browser | Safe Limit | Approx. Max Words |
-|---|---|---|
-| Chrome/Edge | ~2MB URL | ~120,000 words |
-| Firefox | ~65KB encoded | ~39,000 words |
-| Safari | ~65KB encoded | ~39,000 words |
-| **Cross-browser safe** | **~64KB encoded** | **~38,000 words** |
+The UI's 65,536-character **fragment** budget and 95% warning are heuristics, not a guarantee about every browser, device, messaging app or total URL length. No word-count capacity is promised. Actual limits depend on the content, origin and receiving software.
 
-## Codec Versioning
+Decoded representation and reconstructed document JSON are limited to 2 MiB, with additional nesting/container limits. CM additionally limits its representation to 128 KiB and model arrays to 16 MiB. A dedicated worker enforces a two-second request deadline; the normal-work target is 500 ms, not a measured mobile guarantee.
 
-- `/v1/` is the current codec path.
-- Future codecs should be added as `/v2/`, `/v3/`, etc.
-- Existing decoders are never removed.
+## V2 implementation and qualification
+
+`/v2/#<tag><body>` selects among full JSON, v1-equivalent JSON, exact plain text, compact objects, positional tuples, split text and version-owned Markdown. Candidates use raw bytes, native deflate, Brotli or integrity-framed context mixing. Unicode-window encoding is considered where useful. Only results that reconstruct the complete original serialized state are admitted. `Hello world` can be `/v2/#.Hello~world`; `.` represents an explicit empty paragraph.
+
+**This delivery is not production-qualified.** Both readers are wired in, but the default writer remains v1 and CM emission remains disabled. Native/Chromium-core results do not replace the missing installed-WASM, React/Vite, Safari/Firefox and real-mobile gates. See [HANDOFF.md](HANDOFF.md), the [wire contract](docs/implementation/WIRE.md), [results](docs/implementation/RESULTS.md) and [ledger](docs/implementation/LEDGER.md).
+
+For local qualification only:
+
+```bash
+VITE_ENABLE_V2=true VITE_ENABLE_CM_EXPERIMENTAL=true bun dev
+bun run compression:fixtures
+bun run compression:verify
+bun run compression:benchmark --set=development
+bun run compression:benchmark --set=development --shipping
+bun run compression:qualify
+```
+
+Freeze reviewed fixture/model/policy manifests before scoring a **new** untouched evaluation set. The supplied evaluation set has now been scored; do not retune on it while still calling it untouched. The baseline studies' 14 + 8 + 17 real Lexical exports require installed dependencies. Supplemental native fixtures are explicitly not those 39 exported ASTs.
+
+Existing decoder meanings must remain available permanently. Do not change assigned v2 tags, parser rules, model/corpus bytes, or restoration defaults to accommodate an encoder optimization. Keep the editor's full normal `toJSON()` export. Do not deploy merely because the opt-in flags exist.
 
 ## Getting Started
 

@@ -1,0 +1,11 @@
+{
+  "policyId": "native-development-2026-09-30-r1",
+  "basis": "Supplemental native development ONLY; evaluation not yet scored; not release qualification.",
+  "developmentResultSha256": "4d638d371f76c7a0163e076a05ad393776e649ff3dc7245c213645a2e3b92586",
+  "developmentFixtureHash": "ab9977747a5f989361839143bd55847dca4f101d3fc2793d29a1379f5bc49012",
+  "policySourceSha256": "ca3285f223a338004a622d87b22e35e97142a228d397e1b6e465556590880d9a",
+  "corpusDecision": "Retain the original hardened 10.6 KiB primes provisionally. No corpus or model change is authorized by these native-only results. Larger prime/dictionary challenger scores are separate, non-shipping experiments.",
+  "pruning": "Keep UTF8 text CM, tuples CM, Markdown CM; text Brotli q11, window8 text q4, split-text UTF8 q4. Preserve raw/deflate all families, literal, and v1-equivalent q11 baseline. Complete ordinary candidates before CM; skip structural CM for plain-eligible input. Quality 6/9 window wins tied q4; q10 text tied q11; window CM tied cheaper q4.",
+  "evaluationSourcesSha256": "4d706ba1d67e28ca42875675c288e16c2ef84d037013a622d011357c14894c40",
+  "evaluationRichSha256": "5d72a87acec6dd85d432db6138d65bd76aaeda1f601458da325293f7415b32b7"
+}

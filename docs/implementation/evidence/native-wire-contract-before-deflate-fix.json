@@ -1,0 +1,2009 @@
+{
+  "scope": "Supplemental native algorithms, not installed WASM or full app acceptance",
+  "runtime": {
+    "node": "22.16.0",
+    "acorn": "8.14.1",
+    "ada": "2.9.2",
+    "amaro": "0.4.1",
+    "ares": "1.34.5",
+    "brotli": "1.1.0",
+    "cjs_module_lexer": "2.1.0",
+    "cldr": "47.0",
+    "icu": "77.1",
+    "llhttp": "9.2.1",
+    "modules": "127",
+    "napi": "10",
+    "nbytes": "0.1.1",
+    "ncrypto": "0.0.1",
+    "nghttp2": "1.64.0",
+    "openssl": "3.0.16",
+    "simdjson": "3.12.2",
+    "simdutf": "6.4.2",
+    "sqlite": "3.49.1",
+    "tz": "2025b",
+    "undici": "6.21.2",
+    "unicode": "16.0",
+    "uv": "1.49.2",
+    "uvwasi": "0.0.21",
+    "v8": "12.4.254.21-node.26",
+    "zlib": "1.3.0.1-motley-780819f",
+    "zstd": "1.5.7"
+  },
+  "backend": "Node zlib Brotli 1.1.0 + native CompressionStream",
+  "startedUtc": "2026-09-30T02:34:29.847Z",
+  "elapsedMs": 11087.132123000001,
+  "goldenSha256": "1b3c6ef9de1f00eb31d9766f6173e780cac0616bd8d5b9871f8ff3bdc98c550a",
+  "processPeakRssKiB": 286020,
+  "processMemoryAfter": {
+    "rss": 252661760,
+    "heapTotal": 64086016,
+    "heapUsed": 40696952,
+    "external": 37063761,
+    "arrayBuffers": 33673537
+  },
+  "summary": {
+    "pass": 388,
+    "fail": 1,
+    "skip": 2
+  },
+  "cases": [
+    {
+      "name": "golden/text-A",
+      "status": "pass",
+      "elapsedMs": 0.8785309999999527
+    },
+    {
+      "name": "golden/text-B",
+      "status": "pass",
+      "elapsedMs": 7.617584999999963
+    },
+    {
+      "name": "golden/text-C",
+      "status": "pass",
+      "elapsedMs": 1.3799840000000358
+    },
+    {
+      "name": "golden/text-D",
+      "status": "pass",
+      "elapsedMs": 203.364018
+    },
+    {
+      "name": "golden/text-E",
+      "status": "pass",
+      "elapsedMs": 0.48364700000001903
+    },
+    {
+      "name": "golden/text-F",
+      "status": "pass",
+      "elapsedMs": 1.5211459999999306
+    },
+    {
+      "name": "golden/text-G",
+      "status": "pass",
+      "elapsedMs": 0.5974879999999985
+    },
+    {
+      "name": "golden/text-H",
+      "status": "pass",
+      "elapsedMs": 169.56715599999995
+    },
+    {
+      "name": "golden/text-I",
+      "status": "pass",
+      "elapsedMs": 0.6293459999999413
+    },
+    {
+      "name": "golden/text-J",
+      "status": "pass",
+      "elapsedMs": 1.2557869999999411
+    },
+    {
+      "name": "golden/text-K",
+      "status": "pass",
+      "elapsedMs": 0.6303770000000668
+    },
+    {
+      "name": "golden/text-L",
+      "status": "pass",
+      "elapsedMs": 172.8457770000001
+    },
+    {
+      "name": "golden/text-M",
+      "status": "pass",
+      "elapsedMs": 0.24716200000011668
+    },
+    {
+      "name": "golden/text-N",
+      "status": "pass",
+      "elapsedMs": 1.5169890000001942
+    },
+    {
+      "name": "golden/text-O",
+      "status": "pass",
+      "elapsedMs": 0.5773669999998674
+    },
+    {
+      "name": "golden/text-P",
+      "status": "pass",
+      "elapsedMs": 154.83339100000012
+    },
+    {
+      "name": "golden/text-Q",
+      "status": "pass",
+      "elapsedMs": 0.32207400000015696
+    },
+    {
+      "name": "golden/text-R",
+      "status": "pass",
+      "elapsedMs": 2.0196849999999813
+    },
+    {
+      "name": "golden/text-S",
+      "status": "pass",
+      "elapsedMs": 0.5223349999998845
+    },
+    {
+      "name": "golden/text-T",
+      "status": "pass",
+      "elapsedMs": 145.57783700000005
+    },
+    {
+      "name": "golden/text-U",
+      "status": "pass",
+      "elapsedMs": 0.24258399999985159
+    },
+    {
+      "name": "golden/text-V",
+      "status": "pass",
+      "elapsedMs": 1.4268940000001749
+    },
+    {
+      "name": "golden/text-W",
+      "status": "pass",
+      "elapsedMs": 0.47123800000008487
+    },
+    {
+      "name": "golden/text-X",
+      "status": "pass",
+      "elapsedMs": 145.21926899999994
+    },
+    {
+      "name": "golden/text-Y",
+      "status": "pass",
+      "elapsedMs": 0.5574879999999212
+    },
+    {
+      "name": "golden/text-Z",
+      "status": "pass",
+      "elapsedMs": 0.8738519999999426
+    },
+    {
+      "name": "golden/text-a",
+      "status": "pass",
+      "elapsedMs": 0.4996699999999237
+    },
+    {
+      "name": "golden/text-b",
+      "status": "pass",
+      "elapsedMs": 163.0068020000001
+    },
+    {
+      "name": "golden/text-c",
+      "status": "pass",
+      "elapsedMs": 0.23166799999989962
+    },
+    {
+      "name": "golden/text-d",
+      "status": "pass",
+      "elapsedMs": 0.9181390000001102
+    },
+    {
+      "name": "golden/text-e",
+      "status": "pass",
+      "elapsedMs": 0.36377700000002733
+    },
+    {
+      "name": "golden/text-f",
+      "status": "pass",
+      "elapsedMs": 148.6039380000002
+    },
+    {
+      "name": "golden/text-g",
+      "status": "pass",
+      "elapsedMs": 0.5238770000000841
+    },
+    {
+      "name": "golden/text-h",
+      "status": "pass",
+      "elapsedMs": 1.6194429999998192
+    },
+    {
+      "name": "golden/text-i",
+      "status": "pass",
+      "elapsedMs": 0.4148529999999937
+    },
+    {
+      "name": "golden/text-j",
+      "status": "pass",
+      "elapsedMs": 145.56269999999995
+    },
+    {
+      "name": "golden/text-k",
+      "status": "pass",
+      "elapsedMs": 0.1606419999998252
+    },
+    {
+      "name": "golden/text-l",
+      "status": "pass",
+      "elapsedMs": 0.9209829999999783
+    },
+    {
+      "name": "golden/text-m",
+      "status": "pass",
+      "elapsedMs": 0.35411199999998644
+    },
+    {
+      "name": "golden/text-n",
+      "status": "pass",
+      "elapsedMs": 148.01192899999978
+    },
+    {
+      "name": "golden/text-o",
+      "status": "pass",
+      "elapsedMs": 0.24303499999996347
+    },
+    {
+      "name": "golden/text-p",
+      "status": "pass",
+      "elapsedMs": 0.9411629999999604
+    },
+    {
+      "name": "golden/text-q",
+      "status": "pass",
+      "elapsedMs": 0.43586499999992157
+    },
+    {
+      "name": "golden/text-r",
+      "status": "pass",
+      "elapsedMs": 151.11215700000002
+    },
+    {
+      "name": "golden/text-s",
+      "status": "pass",
+      "elapsedMs": 0.1876720000000205
+    },
+    {
+      "name": "golden/text-t",
+      "status": "pass",
+      "elapsedMs": 1.307945000000018
+    },
+    {
+      "name": "golden/text-u",
+      "status": "pass",
+      "elapsedMs": 1.3587509999997565
+    },
+    {
+      "name": "golden/text-v",
+      "status": "pass",
+      "elapsedMs": 144.94958799999995
+    },
+    {
+      "name": "golden/text-w",
+      "status": "pass",
+      "elapsedMs": 0.1628339999997479
+    },
+    {
+      "name": "golden/text-x",
+      "status": "pass",
+      "elapsedMs": 0.8031369999998788
+    },
+    {
+      "name": "golden/text-y",
+      "status": "pass",
+      "elapsedMs": 0.326249999999618
+    },
+    {
+      "name": "golden/text-z",
+      "status": "pass",
+      "elapsedMs": 150.28696200000013
+    },
+    {
+      "name": "golden/text-0",
+      "status": "pass",
+      "elapsedMs": 0.3900859999998829
+    },
+    {
+      "name": "golden/text-1",
+      "status": "pass",
+      "elapsedMs": 0.781894000000193
+    },
+    {
+      "name": "golden/text-2",
+      "status": "pass",
+      "elapsedMs": 0.3485239999999976
+    },
+    {
+      "name": "golden/text-3",
+      "status": "pass",
+      "elapsedMs": 148.29725800000006
+    },
+    {
+      "name": "golden/text-literal",
+      "status": "pass",
+      "elapsedMs": 0.31383199999982025
+    },
+    {
+      "name": "golden/text-v1-brotli",
+      "status": "skip",
+      "elapsedMs": 0,
+      "detail": "Actual legacy Brotli/WASM path unavailable in this runtime."
+    },
+    {
+      "name": "golden/text-v1-deflate",
+      "status": "pass",
+      "elapsedMs": 1.2616660000003321
+    },
+    {
+      "name": "golden/rich-A",
+      "status": "pass",
+      "elapsedMs": 0.4984479999998257
+    },
+    {
+      "name": "golden/rich-B",
+      "status": "pass",
+      "elapsedMs": 1.0274389999999585
+    },
+    {
+      "name": "golden/rich-C",
+      "status": "pass",
+      "elapsedMs": 0.738550000000032
+    },
+    {
+      "name": "golden/rich-D",
+      "status": "pass",
+      "elapsedMs": 178.8981819999999
+    },
+    {
+      "name": "golden/rich-E",
+      "status": "pass",
+      "elapsedMs": 2.5479279999999562
+    },
+    {
+      "name": "golden/rich-F",
+      "status": "pass",
+      "elapsedMs": 3.796954000000369
+    },
+    {
+      "name": "golden/rich-G",
+      "status": "pass",
+      "elapsedMs": 1.8645759999999427
+    },
+    {
+      "name": "golden/rich-H",
+      "status": "pass",
+      "elapsedMs": 195.45641300000034
+    },
+    {
+      "name": "golden/rich-I",
+      "status": "pass",
+      "elapsedMs": 0.8833270000000084
+    },
+    {
+      "name": "golden/rich-J",
+      "status": "pass",
+      "elapsedMs": 2.393946999999571
+    },
+    {
+      "name": "golden/rich-K",
+      "status": "pass",
+      "elapsedMs": 0.744738999999754
+    },
+    {
+      "name": "golden/rich-L",
+      "status": "pass",
+      "elapsedMs": 167.93977799999993
+    },
+    {
+      "name": "golden/rich-M",
+      "status": "pass",
+      "elapsedMs": 1.1205529999997452
+    },
+    {
+      "name": "golden/rich-N",
+      "status": "pass",
+      "elapsedMs": 1.7624579999996968
+    },
+    {
+      "name": "golden/rich-O",
+      "status": "pass",
+      "elapsedMs": 0.8145839999997406
+    },
+    {
+      "name": "golden/rich-P",
+      "status": "pass",
+      "elapsedMs": 155.79975000000013
+    },
+    {
+      "name": "golden/rich-Y",
+      "status": "pass",
+      "elapsedMs": 0.6201219999998102
+    },
+    {
+      "name": "golden/rich-Z",
+      "status": "pass",
+      "elapsedMs": 0.9962270000000899
+    },
+    {
+      "name": "golden/rich-a",
+      "status": "pass",
+      "elapsedMs": 0.5737319999998363
+    },
+    {
+      "name": "golden/rich-b",
+      "status": "pass",
+      "elapsedMs": 153.75349499999993
+    },
+    {
+      "name": "golden/rich-c",
+      "status": "pass",
+      "elapsedMs": 0.6258199999997487
+    },
+    {
+      "name": "golden/rich-d",
+      "status": "pass",
+      "elapsedMs": 1.1637989999999263
+    },
+    {
+      "name": "golden/rich-e",
+      "status": "pass",
+      "elapsedMs": 0.7203930000000582
+    },
+    {
+      "name": "golden/rich-f",
+      "status": "pass",
+      "elapsedMs": 159.85209699999996
+    },
+    {
+      "name": "golden/rich-g",
+      "status": "pass",
+      "elapsedMs": 0.5046879999999874
+    },
+    {
+      "name": "golden/rich-h",
+      "status": "pass",
+      "elapsedMs": 2.0213470000003326
+    },
+    {
+      "name": "golden/rich-i",
+      "status": "pass",
+      "elapsedMs": 0.9318399999997382
+    },
+    {
+      "name": "golden/rich-j",
+      "status": "pass",
+      "elapsedMs": 187.78518399999984
+    },
+    {
+      "name": "golden/rich-k",
+      "status": "pass",
+      "elapsedMs": 0.6335220000000845
+    },
+    {
+      "name": "golden/rich-l",
+      "status": "pass",
+      "elapsedMs": 1.348185000000285
+    },
+    {
+      "name": "golden/rich-m",
+      "status": "pass",
+      "elapsedMs": 2.109755000000405
+    },
+    {
+      "name": "golden/rich-n",
+      "status": "pass",
+      "elapsedMs": 158.85781400000042
+    },
+    {
+      "name": "golden/rich-o",
+      "status": "pass",
+      "elapsedMs": 0.4429250000002867
+    },
+    {
+      "name": "golden/rich-p",
+      "status": "pass",
+      "elapsedMs": 1.162557000000561
+    },
+    {
+      "name": "golden/rich-q",
+      "status": "pass",
+      "elapsedMs": 0.6854389999998602
+    },
+    {
+      "name": "golden/rich-r",
+      "status": "pass",
+      "elapsedMs": 168.27292399999988
+    },
+    {
+      "name": "golden/rich-s",
+      "status": "pass",
+      "elapsedMs": 0.5952339999994365
+    },
+    {
+      "name": "golden/rich-t",
+      "status": "pass",
+      "elapsedMs": 1.8573000000005777
+    },
+    {
+      "name": "golden/rich-u",
+      "status": "pass",
+      "elapsedMs": 1.1933629999994082
+    },
+    {
+      "name": "golden/rich-v",
+      "status": "pass",
+      "elapsedMs": 158.1295799999998
+    },
+    {
+      "name": "golden/rich-w",
+      "status": "pass",
+      "elapsedMs": 0.4752539999999499
+    },
+    {
+      "name": "golden/rich-x",
+      "status": "pass",
+      "elapsedMs": 1.253142999999909
+    },
+    {
+      "name": "golden/rich-y",
+      "status": "pass",
+      "elapsedMs": 0.5642479999996795
+    },
+    {
+      "name": "golden/rich-z",
+      "status": "pass",
+      "elapsedMs": 159.31049399999938
+    },
+    {
+      "name": "golden/rich-0",
+      "status": "pass",
+      "elapsedMs": 0.7113390000004074
+    },
+    {
+      "name": "golden/rich-1",
+      "status": "pass",
+      "elapsedMs": 1.3723620000000665
+    },
+    {
+      "name": "golden/rich-2",
+      "status": "pass",
+      "elapsedMs": 1.07817999999952
+    },
+    {
+      "name": "golden/rich-3",
+      "status": "pass",
+      "elapsedMs": 162.35177799999929
+    },
+    {
+      "name": "golden/rich-v1-brotli",
+      "status": "skip",
+      "elapsedMs": 0,
+      "detail": "Actual legacy Brotli/WASM path unavailable in this runtime."
+    },
+    {
+      "name": "golden/rich-v1-deflate",
+      "status": "pass",
+      "elapsedMs": 3.9456170000003112
+    },
+    {
+      "name": "golden/empty-literal",
+      "status": "pass",
+      "elapsedMs": 0.19299899999987247
+    },
+    {
+      "name": "golden/unicode-literal",
+      "status": "pass",
+      "elapsedMs": 0.20899400000052992
+    },
+    {
+      "name": "losslessness/BOM controls",
+      "status": "pass",
+      "elapsedMs": 33.679189000000406
+    },
+    {
+      "name": "losslessness/lone surrogates",
+      "status": "pass",
+      "elapsedMs": 29.75245900000027
+    },
+    {
+      "name": "losslessness/empty root",
+      "status": "pass",
+      "elapsedMs": 22.778873000000203
+    },
+    {
+      "name": "losslessness/blank trailing paragraphs",
+      "status": "pass",
+      "elapsedMs": 37.80584900000031
+    },
+    {
+      "name": "losslessness/missing fields",
+      "status": "pass",
+      "elapsedMs": 18.49328400000013
+    },
+    {
+      "name": "losslessness/unknown node and alias collisions",
+      "status": "pass",
+      "elapsedMs": 28.762241999999787
+    },
+    {
+      "name": "losslessness/prototype-looking names",
+      "status": "pass",
+      "elapsedMs": 20.701051000000007
+    },
+    {
+      "name": "losslessness/unexpected text and children",
+      "status": "pass",
+      "elapsedMs": 24.145454999999856
+    },
+    {
+      "name": "losslessness/multiple text runs",
+      "status": "pass",
+      "elapsedMs": 22.954797000000326
+    },
+    {
+      "name": "malformed/0",
+      "status": "pass",
+      "elapsedMs": 0.22213400000055117
+    },
+    {
+      "name": "malformed/1",
+      "status": "pass",
+      "elapsedMs": 0.025278000000071188
+    },
+    {
+      "name": "malformed/2",
+      "status": "pass",
+      "elapsedMs": 0.01188799999999901
+    },
+    {
+      "name": "malformed/3",
+      "status": "pass",
+      "elapsedMs": 0.009113999999499356
+    },
+    {
+      "name": "malformed/4",
+      "status": "pass",
+      "elapsedMs": 0.015263000000231841
+    },
+    {
+      "name": "malformed/5",
+      "status": "pass",
+      "elapsedMs": 0.011958000000049651
+    },
+    {
+      "name": "malformed/6",
+      "status": "pass",
+      "elapsedMs": 0.024145999999745982
+    },
+    {
+      "name": "malformed/7",
+      "status": "pass",
+      "elapsedMs": 0.011586999999963155
+    },
+    {
+      "name": "malformed/8",
+      "status": "pass",
+      "elapsedMs": 0.012147999999797321
+    },
+    {
+      "name": "malformed/9",
+      "status": "pass",
+      "elapsedMs": 0.01252799999929266
+    },
+    {
+      "name": "malformed/10",
+      "status": "pass",
+      "elapsedMs": 0.028832999999394815
+    },
+    {
+      "name": "malformed/11",
+      "status": "pass",
+      "elapsedMs": 0.015392999999676249
+    },
+    {
+      "name": "malformed/12",
+      "status": "pass",
+      "elapsedMs": 0.011917999999241147
+    },
+    {
+      "name": "malformed/13",
+      "status": "pass",
+      "elapsedMs": 0.030144999999720312
+    },
+    {
+      "name": "malformed/14",
+      "status": "pass",
+      "elapsedMs": 0.013089000000036322
+    },
+    {
+      "name": "malformed/15",
+      "status": "pass",
+      "elapsedMs": 0.011727000000064436
+    },
+    {
+      "name": "malformed/16",
+      "status": "pass",
+      "elapsedMs": 0.0839059999998426
+    },
+    {
+      "name": "malformed/17",
+      "status": "pass",
+      "elapsedMs": 0.028373000000101456
+    },
+    {
+      "name": "malformed/18",
+      "status": "pass",
+      "elapsedMs": 0.024456000000100175
+    },
+    {
+      "name": "malformed/19",
+      "status": "pass",
+      "elapsedMs": 0.02344600000014907
+    },
+    {
+      "name": "malformed/20",
+      "status": "pass",
+      "elapsedMs": 0.03857800000059797
+    },
+    {
+      "name": "malformed/21",
+      "status": "pass",
+      "elapsedMs": 0.025689000000056694
+    },
+    {
+      "name": "malformed/22",
+      "status": "pass",
+      "elapsedMs": 0.01894899999933841
+    },
+    {
+      "name": "malformed/23",
+      "status": "pass",
+      "elapsedMs": 0.018869000000449887
+    },
+    {
+      "name": "malformed/24",
+      "status": "pass",
+      "elapsedMs": 0.020361000000775675
+    },
+    {
+      "name": "malformed/25",
+      "status": "pass",
+      "elapsedMs": 0.024758000000474567
+    },
+    {
+      "name": "malformed/26",
+      "status": "pass",
+      "elapsedMs": 0.020230999999512278
+    },
+    {
+      "name": "malformed/27",
+      "status": "pass",
+      "elapsedMs": 0.050006000000394124
+    },
+    {
+      "name": "malformed/28",
+      "status": "pass",
+      "elapsedMs": 0.06012099999952625
+    },
+    {
+      "name": "malformed/29",
+      "status": "pass",
+      "elapsedMs": 0.03584399999999732
+    },
+    {
+      "name": "malformed/30",
+      "status": "pass",
+      "elapsedMs": 0.031176999999843247
+    },
+    {
+      "name": "malformed/31",
+      "status": "pass",
+      "elapsedMs": 0.029153999999834923
+    },
+    {
+      "name": "malformed/32",
+      "status": "pass",
+      "elapsedMs": 0.03934899999967456
+    },
+    {
+      "name": "malformed/33",
+      "status": "pass",
+      "elapsedMs": 0.03418200000032812
+    },
+    {
+      "name": "malformed/34",
+      "status": "pass",
+      "elapsedMs": 0.03127700000004552
+    },
+    {
+      "name": "malformed/35",
+      "status": "pass",
+      "elapsedMs": 0.029605000000628934
+    },
+    {
+      "name": "malformed/36",
+      "status": "pass",
+      "elapsedMs": 0.03679600000032224
+    },
+    {
+      "name": "malformed/37",
+      "status": "pass",
+      "elapsedMs": 0.03030600000056438
+    },
+    {
+      "name": "malformed/38",
+      "status": "pass",
+      "elapsedMs": 0.03653500000018539
+    },
+    {
+      "name": "malformed/39",
+      "status": "pass",
+      "elapsedMs": 0.030996999999842956
+    },
+    {
+      "name": "malformed/40",
+      "status": "pass",
+      "elapsedMs": 0.08649999999943248
+    },
+    {
+      "name": "malformed/41",
+      "status": "pass",
+      "elapsedMs": 0.047892000000501866
+    },
+    {
+      "name": "malformed/42",
+      "status": "pass",
+      "elapsedMs": 0.053179999999883876
+    },
+    {
+      "name": "malformed/43",
+      "status": "pass",
+      "elapsedMs": 0.03960999999981141
+    },
+    {
+      "name": "malformed/44",
+      "status": "pass",
+      "elapsedMs": 0.04872299999988172
+    },
+    {
+      "name": "malformed/45",
+      "status": "pass",
+      "elapsedMs": 0.15969000000040978
+    },
+    {
+      "name": "malformed/46",
+      "status": "pass",
+      "elapsedMs": 0.07613399999991088
+    },
+    {
+      "name": "malformed/47",
+      "status": "pass",
+      "elapsedMs": 0.048593000000437314
+    },
+    {
+      "name": "malformed/48",
+      "status": "pass",
+      "elapsedMs": 0.026149000000259548
+    },
+    {
+      "name": "malformed/49",
+      "status": "pass",
+      "elapsedMs": 0.02796200000011595
+    },
+    {
+      "name": "literal/escape exactly once",
+      "status": "pass",
+      "elapsedMs": 0.09797699999944598
+    },
+    {
+      "name": "literal/explicit empty differs from empty fragment",
+      "status": "pass",
+      "elapsedMs": 0.08460700000068755
+    },
+    {
+      "name": "raw/oversize representation",
+      "status": "pass",
+      "elapsedMs": 161.45823100000052
+    },
+    {
+      "name": "reconstruction/text bytes",
+      "status": "pass",
+      "elapsedMs": 206.35098599999947
+    },
+    {
+      "name": "reconstruction/paragraph count",
+      "status": "pass",
+      "elapsedMs": 0.9960460000002058
+    },
+    {
+      "name": "reconstruction/tuple node budget",
+      "status": "pass",
+      "elapsedMs": 221.3229510000001
+    },
+    {
+      "name": "reconstruction/tuple expansion bytes",
+      "status": "pass",
+      "elapsedMs": 217.80206999999973
+    },
+    {
+      "name": "reconstruction/depth",
+      "status": "pass",
+      "elapsedMs": 3.7224730000007185
+    },
+    {
+      "name": "CM/CRC32 standard vector",
+      "status": "pass",
+      "elapsedMs": 0.0978369999993447
+    },
+    {
+      "name": "CM/preallocation model budget",
+      "status": "pass",
+      "elapsedMs": 0.030205000000023574
+    },
+    {
+      "name": "CM/encode size cap",
+      "status": "pass",
+      "elapsedMs": 0.05610400000023219
+    },
+    {
+      "name": "CM/invalid length 128,128,8",
+      "status": "pass",
+      "elapsedMs": 121.60305499999959
+    },
+    {
+      "name": "CM/invalid length 128,0,0",
+      "status": "pass",
+      "elapsedMs": 0.16089199999987613
+    },
+    {
+      "name": "CM/invalid length 128,128,128",
+      "status": "pass",
+      "elapsedMs": 0.059830000000147265
+    },
+    {
+      "name": "CM/public truncation 0",
+      "status": "pass",
+      "elapsedMs": 0.22061200000007375
+    },
+    {
+      "name": "CM/public bit corruption 0",
+      "status": "pass",
+      "elapsedMs": 68.35017999999945
+    },
+    {
+      "name": "CM/public truncation 1",
+      "status": "pass",
+      "elapsedMs": 0.12600900000052206
+    },
+    {
+      "name": "CM/public bit corruption 1",
+      "status": "pass",
+      "elapsedMs": 74.58097199999975
+    },
+    {
+      "name": "CM/public truncation 2",
+      "status": "pass",
+      "elapsedMs": 0.12412700000004406
+    },
+    {
+      "name": "CM/public bit corruption 2",
+      "status": "pass",
+      "elapsedMs": 70.36782200000016
+    },
+    {
+      "name": "CM/public truncation 3",
+      "status": "pass",
+      "elapsedMs": 0.11246899999969173
+    },
+    {
+      "name": "CM/public bit corruption 3",
+      "status": "pass",
+      "elapsedMs": 66.25339000000076
+    },
+    {
+      "name": "CM/public truncation 4",
+      "status": "pass",
+      "elapsedMs": 0.09965999999985797
+    },
+    {
+      "name": "CM/public bit corruption 4",
+      "status": "pass",
+      "elapsedMs": 70.33702000000085
+    },
+    {
+      "name": "CM/public truncation 5",
+      "status": "pass",
+      "elapsedMs": 0.106340000000273
+    },
+    {
+      "name": "CM/public bit corruption 5",
+      "status": "pass",
+      "elapsedMs": 63.58085299999948
+    },
+    {
+      "name": "CM/public truncation 6",
+      "status": "pass",
+      "elapsedMs": 0.13473200000044017
+    },
+    {
+      "name": "CM/public bit corruption 6",
+      "status": "pass",
+      "elapsedMs": 61.69506999999976
+    },
+    {
+      "name": "CM/public truncation 7",
+      "status": "pass",
+      "elapsedMs": 0.09474200000022392
+    },
+    {
+      "name": "CM/public bit corruption 7",
+      "status": "pass",
+      "elapsedMs": 62.346660000000156
+    },
+    {
+      "name": "CM/public truncation 8",
+      "status": "pass",
+      "elapsedMs": 0.10508800000025076
+    },
+    {
+      "name": "CM/public bit corruption 8",
+      "status": "pass",
+      "elapsedMs": 66.32207199999993
+    },
+    {
+      "name": "CM/public truncation 9",
+      "status": "pass",
+      "elapsedMs": 63.53049800000008
+    },
+    {
+      "name": "CM/public bit corruption 9",
+      "status": "pass",
+      "elapsedMs": 63.68358799999987
+    },
+    {
+      "name": "CM/public truncation 10",
+      "status": "pass",
+      "elapsedMs": 78.79121299999952
+    },
+    {
+      "name": "CM/public bit corruption 10",
+      "status": "pass",
+      "elapsedMs": 72.41635000000042
+    },
+    {
+      "name": "CM/public truncation 11",
+      "status": "pass",
+      "elapsedMs": 75.19607600000018
+    },
+    {
+      "name": "CM/public bit corruption 11",
+      "status": "pass",
+      "elapsedMs": 70.55729599999995
+    },
+    {
+      "name": "CM/public truncation 12",
+      "status": "pass",
+      "elapsedMs": 69.55231599999934
+    },
+    {
+      "name": "CM/public bit corruption 12",
+      "status": "pass",
+      "elapsedMs": 71.65354299999944
+    },
+    {
+      "name": "CM/public truncation 13",
+      "status": "pass",
+      "elapsedMs": 67.0715479999999
+    },
+    {
+      "name": "CM/public bit corruption 13",
+      "status": "pass",
+      "elapsedMs": 73.47452900000008
+    },
+    {
+      "name": "CM/public truncation 14",
+      "status": "pass",
+      "elapsedMs": 70.67741599999954
+    },
+    {
+      "name": "CM/public bit corruption 14",
+      "status": "pass",
+      "elapsedMs": 64.53584899999987
+    },
+    {
+      "name": "CM/public truncation 15",
+      "status": "pass",
+      "elapsedMs": 63.49463500000002
+    },
+    {
+      "name": "CM/public bit corruption 15",
+      "status": "pass",
+      "elapsedMs": 63.9206549999999
+    },
+    {
+      "name": "CM/public truncation 16",
+      "status": "pass",
+      "elapsedMs": 72.32660399999986
+    },
+    {
+      "name": "CM/public bit corruption 16",
+      "status": "pass",
+      "elapsedMs": 64.19988400000057
+    },
+    {
+      "name": "CM/public truncation 17",
+      "status": "pass",
+      "elapsedMs": 64.20102600000064
+    },
+    {
+      "name": "CM/public bit corruption 17",
+      "status": "pass",
+      "elapsedMs": 65.76380400000016
+    },
+    {
+      "name": "CM/public trailing byte",
+      "status": "pass",
+      "elapsedMs": 61.30964099999983
+    },
+    {
+      "name": "deflate/decompression bomb bounded",
+      "status": "pass",
+      "elapsedMs": 12.771349999999984
+    },
+    {
+      "name": "deflate/truncation",
+      "status": "pass",
+      "elapsedMs": 1.0590309999997771
+    },
+    {
+      "name": "deflate/trailing input",
+      "status": "fail",
+      "elapsedMs": 0.4381389999998646,
+      "detail": "Error: Expected CodecError, received undefined\n    at check (file:///mnt/data/work/notes/tests/contract/wire-contract.ts:14:11)\n    at reject (file:///mnt/data/work/notes/tests/contract/wire-contract.ts:25:5)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async test (file:///mnt/data/work/notes/tests/contract/wire-contract.ts:37:13)\n    at async runWireContract (file:///mnt/data/work/notes/tests/contract/wire-contract.ts:145:9)\n    at async file:///mnt/data/work/notes/scripts/compression/verify-wire.ts:15:19"
+    },
+    {
+      "name": "brotli/decompression bomb bounded",
+      "status": "pass",
+      "elapsedMs": 10.742381000000023
+    },
+    {
+      "name": "brotli/truncation",
+      "status": "pass",
+      "elapsedMs": 0.3546329999999216
+    },
+    {
+      "name": "brotli/trailing input",
+      "status": "pass",
+      "elapsedMs": 0.25229899999976624
+    },
+    {
+      "name": "stream/early cancel and unlock",
+      "status": "pass",
+      "elapsedMs": 0.26210400000036316
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 0",
+      "status": "pass",
+      "elapsedMs": 21.989089000000604
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 1",
+      "status": "pass",
+      "elapsedMs": 22.148529999999482
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 2",
+      "status": "pass",
+      "elapsedMs": 20.963958999999704
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 3",
+      "status": "pass",
+      "elapsedMs": 22.39091399999961
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 4",
+      "status": "pass",
+      "elapsedMs": 21.070309000000634
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 5",
+      "status": "pass",
+      "elapsedMs": 21.519545000000107
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 6",
+      "status": "pass",
+      "elapsedMs": 23.21774600000026
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 7",
+      "status": "pass",
+      "elapsedMs": 23.44384600000012
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 8",
+      "status": "pass",
+      "elapsedMs": 21.590651000000435
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 9",
+      "status": "pass",
+      "elapsedMs": 22.38688700000057
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 10",
+      "status": "pass",
+      "elapsedMs": 26.714900999999372
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 11",
+      "status": "pass",
+      "elapsedMs": 21.613955999999234
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 12",
+      "status": "pass",
+      "elapsedMs": 23.56062099999872
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 13",
+      "status": "pass",
+      "elapsedMs": 22.578606000000946
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 14",
+      "status": "pass",
+      "elapsedMs": 20.93109000000004
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 15",
+      "status": "pass",
+      "elapsedMs": 20.575566999999864
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 16",
+      "status": "pass",
+      "elapsedMs": 21.94425300000148
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 17",
+      "status": "pass",
+      "elapsedMs": 20.631069999999454
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 18",
+      "status": "pass",
+      "elapsedMs": 23.382152000000133
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 19",
+      "status": "pass",
+      "elapsedMs": 23.902455000001282
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 20",
+      "status": "pass",
+      "elapsedMs": 22.27070300000014
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 21",
+      "status": "pass",
+      "elapsedMs": 22.209391000000323
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 22",
+      "status": "pass",
+      "elapsedMs": 21.166143000000375
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 23",
+      "status": "pass",
+      "elapsedMs": 20.945120999998835
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 24",
+      "status": "pass",
+      "elapsedMs": 21.89766200000122
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 25",
+      "status": "pass",
+      "elapsedMs": 21.593995999999606
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 26",
+      "status": "pass",
+      "elapsedMs": 23.139697999999044
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 27",
+      "status": "pass",
+      "elapsedMs": 20.937380000001212
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 28",
+      "status": "pass",
+      "elapsedMs": 20.427614000000176
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 29",
+      "status": "pass",
+      "elapsedMs": 22.084704000000784
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 30",
+      "status": "pass",
+      "elapsedMs": 21.209759000001213
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 31",
+      "status": "pass",
+      "elapsedMs": 26.748109999998633
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 32",
+      "status": "pass",
+      "elapsedMs": 23.50065100000029
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 33",
+      "status": "pass",
+      "elapsedMs": 20.190527000000657
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 34",
+      "status": "pass",
+      "elapsedMs": 21.63374599999952
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 35",
+      "status": "pass",
+      "elapsedMs": 22.335048999999344
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 36",
+      "status": "pass",
+      "elapsedMs": 22.310763999999836
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 37",
+      "status": "pass",
+      "elapsedMs": 22.414678999999524
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 38",
+      "status": "pass",
+      "elapsedMs": 23.502684000000954
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 39",
+      "status": "pass",
+      "elapsedMs": 20.586801999999807
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 40",
+      "status": "pass",
+      "elapsedMs": 23.02482599999894
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 41",
+      "status": "pass",
+      "elapsedMs": 21.72309099999984
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 42",
+      "status": "pass",
+      "elapsedMs": 23.937197000001106
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 43",
+      "status": "pass",
+      "elapsedMs": 22.564463999999134
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 44",
+      "status": "pass",
+      "elapsedMs": 20.375264999998763
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 45",
+      "status": "pass",
+      "elapsedMs": 21.470961999999417
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 46",
+      "status": "pass",
+      "elapsedMs": 23.54766700000073
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 47",
+      "status": "pass",
+      "elapsedMs": 20.560061999998652
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 48",
+      "status": "pass",
+      "elapsedMs": 24.79537700000037
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 49",
+      "status": "pass",
+      "elapsedMs": 22.18621600000006
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 50",
+      "status": "pass",
+      "elapsedMs": 23.241862999999285
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 51",
+      "status": "pass",
+      "elapsedMs": 22.995781999999963
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 52",
+      "status": "pass",
+      "elapsedMs": 26.042380000000776
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 53",
+      "status": "pass",
+      "elapsedMs": 25.72709600000053
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 54",
+      "status": "pass",
+      "elapsedMs": 23.3328590000001
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 55",
+      "status": "pass",
+      "elapsedMs": 24.1014439999999
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 56",
+      "status": "pass",
+      "elapsedMs": 25.435018000000127
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 57",
+      "status": "pass",
+      "elapsedMs": 22.518384999999398
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 58",
+      "status": "pass",
+      "elapsedMs": 24.060628999999608
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 59",
+      "status": "pass",
+      "elapsedMs": 23.58051699999851
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 60",
+      "status": "pass",
+      "elapsedMs": 20.612417999998797
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 61",
+      "status": "pass",
+      "elapsedMs": 24.74418499999956
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 62",
+      "status": "pass",
+      "elapsedMs": 23.130620999998428
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 63",
+      "status": "pass",
+      "elapsedMs": 24.184839999999895
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 64",
+      "status": "pass",
+      "elapsedMs": 24.622000999999727
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 65",
+      "status": "pass",
+      "elapsedMs": 22.9961600000006
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 66",
+      "status": "pass",
+      "elapsedMs": 22.756149000000732
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 67",
+      "status": "pass",
+      "elapsedMs": 21.384448000000702
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 68",
+      "status": "pass",
+      "elapsedMs": 20.38101099999949
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 69",
+      "status": "pass",
+      "elapsedMs": 21.73467399999936
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 70",
+      "status": "pass",
+      "elapsedMs": 21.860562999998365
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 71",
+      "status": "pass",
+      "elapsedMs": 21.145289000000048
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 72",
+      "status": "pass",
+      "elapsedMs": 22.41657799999848
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 73",
+      "status": "pass",
+      "elapsedMs": 22.04997700000058
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 74",
+      "status": "pass",
+      "elapsedMs": 21.64329700000053
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 75",
+      "status": "pass",
+      "elapsedMs": 22.20246700000098
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 76",
+      "status": "pass",
+      "elapsedMs": 21.072438999999576
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 77",
+      "status": "pass",
+      "elapsedMs": 19.751595000001544
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 78",
+      "status": "pass",
+      "elapsedMs": 24.143702999999732
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 79",
+      "status": "pass",
+      "elapsedMs": 22.79638899999918
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 80",
+      "status": "pass",
+      "elapsedMs": 22.801257000000987
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 81",
+      "status": "pass",
+      "elapsedMs": 22.8673060000001
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 82",
+      "status": "pass",
+      "elapsedMs": 22.589208000001236
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 83",
+      "status": "pass",
+      "elapsedMs": 23.773057000000335
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 84",
+      "status": "pass",
+      "elapsedMs": 23.558654000000388
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 85",
+      "status": "pass",
+      "elapsedMs": 21.782274999999572
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 86",
+      "status": "pass",
+      "elapsedMs": 21.31502399999954
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 87",
+      "status": "pass",
+      "elapsedMs": 21.732286000000386
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 88",
+      "status": "pass",
+      "elapsedMs": 25.00486699999965
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 89",
+      "status": "pass",
+      "elapsedMs": 23.908620000000155
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 90",
+      "status": "pass",
+      "elapsedMs": 24.081370000001698
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 91",
+      "status": "pass",
+      "elapsedMs": 24.645346999999674
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 92",
+      "status": "pass",
+      "elapsedMs": 22.5261730000002
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 93",
+      "status": "pass",
+      "elapsedMs": 22.694025000000693
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 94",
+      "status": "pass",
+      "elapsedMs": 25.896576999999525
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 95",
+      "status": "pass",
+      "elapsedMs": 24.540318999999727
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 96",
+      "status": "pass",
+      "elapsedMs": 24.712518000000273
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 97",
+      "status": "pass",
+      "elapsedMs": 22.942698999999266
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 98",
+      "status": "pass",
+      "elapsedMs": 26.38647300000048
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 99",
+      "status": "pass",
+      "elapsedMs": 21.888574999999037
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 100",
+      "status": "pass",
+      "elapsedMs": 25.664058000000296
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 101",
+      "status": "pass",
+      "elapsedMs": 23.77218499999981
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 102",
+      "status": "pass",
+      "elapsedMs": 24.026388000000225
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 103",
+      "status": "pass",
+      "elapsedMs": 21.59399300000041
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 104",
+      "status": "pass",
+      "elapsedMs": 27.42153700000017
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 105",
+      "status": "pass",
+      "elapsedMs": 45.58726000000024
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 106",
+      "status": "pass",
+      "elapsedMs": 28.16463499999918
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 107",
+      "status": "pass",
+      "elapsedMs": 56.3440499999997
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 108",
+      "status": "pass",
+      "elapsedMs": 21.713552000001073
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 109",
+      "status": "pass",
+      "elapsedMs": 21.48435900000004
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 110",
+      "status": "pass",
+      "elapsedMs": 22.105812000001606
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 111",
+      "status": "pass",
+      "elapsedMs": 20.72487700000056
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 112",
+      "status": "pass",
+      "elapsedMs": 25.03403099999923
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 113",
+      "status": "pass",
+      "elapsedMs": 25.026770000000397
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 114",
+      "status": "pass",
+      "elapsedMs": 21.60220499999923
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 115",
+      "status": "pass",
+      "elapsedMs": 21.772941999999603
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 116",
+      "status": "pass",
+      "elapsedMs": 21.146731000000727
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 117",
+      "status": "pass",
+      "elapsedMs": 23.109348999998474
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 118",
+      "status": "pass",
+      "elapsedMs": 21.738781000000017
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 119",
+      "status": "pass",
+      "elapsedMs": 22.01593700000012
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 120",
+      "status": "pass",
+      "elapsedMs": 23.564862999999605
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 121",
+      "status": "pass",
+      "elapsedMs": 21.86562999999842
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 122",
+      "status": "pass",
+      "elapsedMs": 25.196986000000834
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 123",
+      "status": "pass",
+      "elapsedMs": 23.708089000001564
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 124",
+      "status": "pass",
+      "elapsedMs": 24.75117599999976
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 125",
+      "status": "pass",
+      "elapsedMs": 21.532310000000507
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 126",
+      "status": "pass",
+      "elapsedMs": 20.8327790000003
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 127",
+      "status": "pass",
+      "elapsedMs": 23.9081299999998
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 128",
+      "status": "pass",
+      "elapsedMs": 21.638989999999467
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 129",
+      "status": "pass",
+      "elapsedMs": 22.435436999998274
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 130",
+      "status": "pass",
+      "elapsedMs": 23.70449699999881
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 131",
+      "status": "pass",
+      "elapsedMs": 23.227065999999468
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 132",
+      "status": "pass",
+      "elapsedMs": 23.65603100000044
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 133",
+      "status": "pass",
+      "elapsedMs": 22.630009000000427
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 134",
+      "status": "pass",
+      "elapsedMs": 22.910890999999538
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 135",
+      "status": "pass",
+      "elapsedMs": 23.771002999999837
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 136",
+      "status": "pass",
+      "elapsedMs": 26.444750000000568
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 137",
+      "status": "pass",
+      "elapsedMs": 28.57732400000168
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 138",
+      "status": "pass",
+      "elapsedMs": 28.181039000000965
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 139",
+      "status": "pass",
+      "elapsedMs": 24.423673000001145
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 140",
+      "status": "pass",
+      "elapsedMs": 24.201726000001145
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 141",
+      "status": "pass",
+      "elapsedMs": 26.46130500000072
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 142",
+      "status": "pass",
+      "elapsedMs": 23.775854999999865
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 143",
+      "status": "pass",
+      "elapsedMs": 29.38946399999986
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 144",
+      "status": "pass",
+      "elapsedMs": 22.690418999998656
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 145",
+      "status": "pass",
+      "elapsedMs": 24.43118499999946
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 146",
+      "status": "pass",
+      "elapsedMs": 21.8395019999989
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 147",
+      "status": "pass",
+      "elapsedMs": 25.08683999999994
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 148",
+      "status": "pass",
+      "elapsedMs": 26.101243999999497
+    },
+    {
+      "name": "fuzz/seeded bytes and JSON 149",
+      "status": "pass",
+      "elapsedMs": 22.084359000000404
+    },
+    {
+      "name": "selector/raw fallback survives compressor failures",
+      "status": "pass",
+      "elapsedMs": 12.87840899999901
+    },
+    {
+      "name": "selector/baseline before deadline and progress",
+      "status": "pass",
+      "elapsedMs": 1.8941149999991467
+    },
+    {
+      "name": "worker/completion cleanup",
+      "status": "pass",
+      "elapsedMs": 16.233109000000695
+    },
+    {
+      "name": "worker/timeout best valid progress",
+      "status": "pass",
+      "elapsedMs": 20.733078999999634
+    },
+    {
+      "name": "worker/timeout without baseline",
+      "status": "pass",
+      "elapsedMs": 20.496165000000474
+    },
+    {
+      "name": "worker/decode timeout",
+      "status": "pass",
+      "elapsedMs": 20.451154000000315
+    },
+    {
+      "name": "worker/cancel discards completed progress",
+      "status": "pass",
+      "elapsedMs": 0.5396110000001499
+    },
+    {
+      "name": "worker/error retains validated progress",
+      "status": "pass",
+      "elapsedMs": 0.10213300000032177
+    },
+    {
+      "name": "worker/error without baseline",
+      "status": "pass",
+      "elapsedMs": 0.052388000000064494
+    },
+    {
+      "name": "worker/invalid reply",
+      "status": "pass",
+      "elapsedMs": 0.04651999999987311
+    },
+    {
+      "name": "worker/explicit error",
+      "status": "pass",
+      "elapsedMs": 0.18253499999991618
+    },
+    {
+      "name": "worker/stable progress tie",
+      "status": "pass",
+      "elapsedMs": 20.62360600000102
+    },
+    {
+      "name": "worker/pre-aborted signal",
+      "status": "pass",
+      "elapsedMs": 0
+    }
+  ]
+}

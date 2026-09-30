@@ -103,3 +103,124 @@ describe('useShareUrl', () => {
         }
     });
 });
+
+describe('share request lifecycle', () => {
+    it('should hold a snapshot, disable duplicate requests, and display the actual shared version', async () => {
+        let finish: (value: string) => void = () => {};
+        let captured: unknown;
+        const encode = mock((snapshot: unknown) => {
+            captured = snapshot;
+            return new Promise<string>((resolve) => {
+                finish = resolve;
+            });
+        });
+        mock.module('../codecs', () => ({ encodeToUrl: encode }));
+        const writeText = mock(async () => undefined);
+        setClipboard(writeText);
+        window.history.replaceState(null, '', '/v1/');
+        const { useShareUrl } = await import(`./useShareUrl?case=${Math.random()}`);
+        const { result, unmount } = renderHook(() => useShareUrl());
+        const mutable = JSON.parse(JSON.stringify(state));
+        let pending: Promise<void> = Promise.resolve();
+        await act(async () => {
+            pending = result.current.share(mutable);
+        });
+        expect(result.current.isPreparing).toBe(true);
+        mutable.root.format = 'right';
+        await act(async () => {
+            await result.current.share(mutable);
+        });
+        expect(encode).toHaveBeenCalledTimes(1);
+        expect(captured).toEqual(state);
+        await act(async () => {
+            finish('/v2/#.done');
+            await pending;
+        });
+        expect(result.current.isPreparing).toBe(false);
+        expect(result.current.sharedVersion).toBe('v2');
+        expect(writeText).toHaveBeenCalledTimes(1);
+        unmount();
+    });
+    it('should not commit clipboard or history after unmount cancels a pending encode', async () => {
+        let finish: (value: string) => void = () => {};
+        let signal: AbortSignal | undefined;
+        mock.module('../codecs', () => ({
+            encodeToUrl: (_: unknown, input: AbortSignal) => {
+                signal = input;
+                return new Promise<string>((resolve) => {
+                    finish = resolve;
+                });
+            },
+        }));
+        const writeText = mock(async () => undefined);
+        setClipboard(writeText);
+        window.history.replaceState(null, '', '/v1/');
+        const { useShareUrl } = await import(`./useShareUrl?case=${Math.random()}`);
+        const { result, unmount } = renderHook(() => useShareUrl());
+        let pending: Promise<void> = Promise.resolve();
+        await act(async () => {
+            pending = result.current.share(state);
+        });
+        unmount();
+        expect(signal?.aborted).toBe(true);
+        finish('/v2/#.stale');
+        await pending;
+        expect(writeText).not.toHaveBeenCalled();
+        expect(window.location.hash).toBe('');
+    });
+    it('should leave the address unchanged on clipboard denial and allow retry', async () => {
+        mock.module('../codecs', () => ({ encodeToUrl: async () => '/v2/#.retry' }));
+        setClipboard(async () => {
+            throw new Error('Clipboard denied');
+        });
+        window.history.replaceState(null, '', '/v1/');
+        const { useShareUrl } = await import(`./useShareUrl?case=${Math.random()}`);
+        const { result, unmount } = renderHook(() => useShareUrl());
+        await act(async () => {
+            await result.current.share(state);
+        });
+        expect(result.current.error).toContain('Clipboard denied');
+        expect(result.current.isPreparing).toBe(false);
+        expect(window.location.hash).toBe('');
+        setClipboard(async () => undefined);
+        await act(async () => {
+            await result.current.share(state);
+        });
+        expect(result.current.isCopied).toBe(true);
+        expect(window.location.hash).toBe('#.retry');
+        unmount();
+    });
+    it('should reset the badge and URL budget on navigation and cancel the previous share', async () => {
+        let signal: AbortSignal | undefined;
+        let finish: (value: string) => void = () => {};
+        mock.module('../codecs', () => ({
+            encodeToUrl: (_: unknown, input: AbortSignal) => {
+                signal = input;
+                return new Promise<string>((resolve) => {
+                    finish = resolve;
+                });
+            },
+        }));
+        const writeText = mock(async () => undefined);
+        setClipboard(writeText);
+        const { useShareUrl } = await import(`./useShareUrl?case=${Math.random()}`);
+        const { result, unmount } = renderHook(() => useShareUrl());
+        let pending: Promise<void> = Promise.resolve();
+        await act(async () => {
+            pending = result.current.share(state);
+        });
+        await act(async () => {
+            window.history.replaceState(null, '', '/v1/#old');
+            window.dispatchEvent(new Event('popstate'));
+        });
+        expect(signal?.aborted).toBe(true);
+        await act(async () => {
+            finish('/v2/#.stale');
+            await pending;
+        });
+        expect(writeText).not.toHaveBeenCalled();
+        expect(result.current.sharedVersion).toBeNull();
+        expect(result.current.urlLength).toBe(3);
+        unmount();
+    });
+});

@@ -1,6 +1,7 @@
 import type { SerializedEditorState } from 'lexical';
 import { useEffect, useState } from 'react';
 
+import { WRITER_VERSION } from './codecs/config';
 import Footer from './components/Footer';
 import LimitIndicator from './components/LimitIndicator';
 import ShareButton from './components/ShareButton';
@@ -23,8 +24,17 @@ import { useShareUrl } from './hooks/useShareUrl';
 import { useTheme } from './hooks/useTheme';
 
 const App = () => {
-    const { isLoading, error: documentError, documentVersion, initialState } = useDocument();
-    const { share, isCopied, urlLength, urlBudgetPercent, contentLength, error: shareError } = useShareUrl();
+    const { isLoading, error: documentError, documentKey, documentVersion, initialState } = useDocument();
+    const {
+        share,
+        isCopied,
+        isPreparing,
+        sharedVersion,
+        urlLength,
+        urlBudgetPercent,
+        contentLength,
+        error: shareError,
+    } = useShareUrl();
     const { theme, toggle: toggleTheme } = useTheme();
 
     const [editorState, setEditorState] = useState<SerializedEditorState>(EMPTY_EDITOR_STATE);
@@ -38,9 +48,7 @@ const App = () => {
     }, [isSharedDocument]);
 
     useEffect(() => {
-        if (initialState) {
-            setEditorState(initialState);
-        }
+        setEditorState(initialState ?? EMPTY_EDITOR_STATE);
     }, [initialState]);
 
     useEffect(() => {
@@ -61,12 +69,12 @@ const App = () => {
                 <header className="mb-3 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-edge bg-glass px-4 py-3">
                     <div className="flex items-center gap-2">
                         <span className="font-semibold text-lg tracking-tight">notes.</span>
-                        <VersionBadge version={documentVersion ?? 'v1'} />
+                        <VersionBadge version={sharedVersion ?? documentVersion ?? WRITER_VERSION} />
                     </div>
                     <div className="flex items-center gap-3">
                         <LimitIndicator percent={urlBudgetPercent} />
                         <ThemeToggle theme={theme} onToggle={toggleTheme} />
-                        <ShareButton isCopied={isCopied} onShare={() => share(editorState)} />
+                        <ShareButton isPreparing={isPreparing} isCopied={isCopied} onShare={() => share(editorState)} />
                     </div>
                 </header>
 
@@ -78,6 +86,7 @@ const App = () => {
 
                 <main className="flex-1">
                     <Editor
+                        key={documentKey}
                         initialState={effectiveInitialState}
                         onChange={setEditorState}
                         readOnly={!isEditing}

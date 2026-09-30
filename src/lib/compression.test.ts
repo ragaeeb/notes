@@ -1,4 +1,11 @@
-import { beforeEach, describe, expect, it, mock } from 'bun:test';
+import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
+
+const originalCompressionStream = globalThis.CompressionStream;
+const originalDecompressionStream = globalThis.DecompressionStream;
+afterEach(() => {
+    globalThis.CompressionStream = originalCompressionStream;
+    globalThis.DecompressionStream = originalDecompressionStream;
+});
 
 const createPassthroughCompressionGlobals = () => {
     class PassThroughCompressionStream {
@@ -71,11 +78,20 @@ describe('getCompressor', () => {
         expect(compressMock).toHaveBeenCalledTimes(2);
     });
 
-    it('should compress and decompress data correctly with Brotli', async () => {
+    it('should route Brotli calls through the bounded stream facade', async () => {
         mock.module('brotli-wasm', () => ({
             default: Promise.resolve({
+                BrotliStreamResultCode: { NeedsMoreInput: 2, NeedsMoreOutput: 3, ResultSuccess: 1 },
                 compress: (input: Uint8Array) => new Uint8Array([...input].reverse()),
-                decompress: (input: Uint8Array) => new Uint8Array([...input].reverse()),
+                DecompressStream: class {
+                    decompress(input: Uint8Array) {
+                        return { buf: new Uint8Array([...input].reverse()), code: 1, input_offset: input.length };
+                    }
+                    free() {}
+                },
+                decompress: () => {
+                    throw new Error('The unbounded API must not be used.');
+                },
             }),
         }));
 
@@ -101,13 +117,8 @@ describe('getCompressor', () => {
 
 describe('getBrotliIfAvailable', () => {
     it('should return the module when WASM loads successfully', async () => {
-        const fakeModule = {
-            compress: (input: Uint8Array) => input,
-            decompress: (input: Uint8Array) => input,
-        };
-        mock.module('brotli-wasm', () => ({
-            default: Promise.resolve(fakeModule),
-        }));
+        const fakeModule = { compress: (input: Uint8Array) => input, decompress: (input: Uint8Array) => input };
+        mock.module('brotli-wasm', () => ({ default: Promise.resolve(fakeModule) }));
 
         const { getBrotliIfAvailable } = await import(`./compression?case=${Math.random()}`);
         const result = await getBrotliIfAvailable();
@@ -118,9 +129,7 @@ describe('getBrotliIfAvailable', () => {
     });
 
     it('should return null when WASM fails to load', async () => {
-        mock.module('brotli-wasm', () => ({
-            default: Promise.resolve(null),
-        }));
+        mock.module('brotli-wasm', () => ({ default: Promise.resolve(null) }));
 
         const { getBrotliIfAvailable } = await import(`./compression?case=${Math.random()}`);
         const result = await getBrotliIfAvailable();

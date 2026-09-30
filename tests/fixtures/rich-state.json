@@ -1,0 +1,263 @@
+{
+  "root": {
+    "direction": null,
+    "format": "",
+    "indent": 0,
+    "version": 1,
+    "type": "root",
+    "children": [
+      {
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "tag": "h1",
+        "type": "heading",
+        "children": [
+          {
+            "detail": 0,
+            "format": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1,
+            "type": "text",
+            "text": "Notebook"
+          }
+        ]
+      },
+      {
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "textFormat": 0,
+        "textStyle": "",
+        "type": "paragraph",
+        "children": [
+          {
+            "detail": 0,
+            "format": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1,
+            "type": "text",
+            "text": "Keep "
+          },
+          {
+            "detail": 0,
+            "format": 1,
+            "mode": "normal",
+            "style": "",
+            "version": 1,
+            "type": "text",
+            "text": "bold"
+          },
+          {
+            "detail": 0,
+            "format": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1,
+            "type": "text",
+            "text": ", "
+          },
+          {
+            "detail": 0,
+            "format": 2,
+            "mode": "normal",
+            "style": "",
+            "version": 1,
+            "type": "text",
+            "text": "italic"
+          },
+          {
+            "detail": 0,
+            "format": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1,
+            "type": "text",
+            "text": ", and "
+          },
+          {
+            "detail": 0,
+            "format": 16,
+            "mode": "normal",
+            "style": "",
+            "version": 1,
+            "type": "text",
+            "text": "code"
+          },
+          {
+            "detail": 0,
+            "format": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1,
+            "type": "text",
+            "text": " intact."
+          }
+        ]
+      },
+      {
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "type": "list",
+        "listType": "bullet",
+        "start": 1,
+        "tag": "ul",
+        "children": [
+          {
+            "direction": null,
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "listitem",
+            "value": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "version": 1,
+                "type": "text",
+                "text": "Review "
+              },
+              {
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "type": "link",
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "version": 1,
+                    "type": "text",
+                    "text": "notes"
+                  }
+                ],
+                "url": "https://example.org/a?q=3#p",
+                "rel": null,
+                "target": null,
+                "title": null
+              }
+            ]
+          },
+          {
+            "direction": null,
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "listitem",
+            "value": 2,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "version": 1,
+                "type": "text",
+                "text": "Keep the receipt"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "type": "list",
+        "listType": "number",
+        "start": 1,
+        "tag": "ol",
+        "children": [
+          {
+            "direction": null,
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "listitem",
+            "value": 1,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "version": 1,
+                "type": "text",
+                "text": "Read"
+              }
+            ]
+          },
+          {
+            "direction": null,
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "type": "listitem",
+            "value": 2,
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "version": 1,
+                "type": "text",
+                "text": "Check"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "type": "quote",
+        "children": [
+          {
+            "detail": 0,
+            "format": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1,
+            "type": "text",
+            "text": "A quiet reminder."
+          }
+        ]
+      },
+      {
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "type": "code",
+        "children": [
+          {
+            "detail": 0,
+            "format": 0,
+            "mode": "normal",
+            "style": "",
+            "version": 1,
+            "type": "text",
+            "text": "const n = 7;\nconsole.log(n);"
+          }
+        ],
+        "language": "ts"
+      }
+    ]
+  }
+}

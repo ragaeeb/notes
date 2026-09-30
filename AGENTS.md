@@ -77,11 +77,11 @@ Every encoded payload starts with `[format_version, compressor_id, repr_flags]`:
 
 ### Adding a new codec version
 
-1. Add `src/codecs/v2.ts` with `encode` and `decode`.
+1. Add a new version module (v2 now exists) with `encode` and `decode`.
 2. Update `detectVersion()` in `src/codecs/index.ts`.
 3. Add decoder case in `decodeFromUrl()`.
-4. Point `encodeToUrl()` at latest version.
-5. Add `src/codecs/v2.test.ts`.
+4. Point `encodeToUrl()` at the new version only after its release gates pass.
+5. Add isolated public wire tests and immutable goldens for the new version.
 
 ### WASM loading
 
@@ -126,3 +126,17 @@ Required GitHub Action secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`.
 - `.github/workflows/build.yml`: CI only. Runs `bun run build`, `bun test --coverage --coverage-reporter=lcov`, then uploads `coverage/lcov.info` to Codecov.
 - `.github/workflows/release.yml`: Release only. Runs semantic-release on `main` to manage version/changelog/release automation.
 - `.github/workflows/deploy.yml`: Deploy only. Builds and deploys `dist/` to Cloudflare Pages via Wrangler.
+
+## Implemented v2 and current release gate
+
+Read `HANDOFF.md`, `docs/implementation/WIRE.md`, `RESULTS.md`, and `LEDGER.md` before modifying the compression work. Both versions decode through one on-demand worker per request. `v2-policy.ts` controls emission only; `v2-constants.ts`, the version-owned parser/representation restore rules and CM model/corpus define permanent meanings.
+
+The default writer is still v1 (`RELEASE_QUALIFIED=false`); CM emission is off (`CM_QUALIFIED=false`). `VITE_ENABLE_V2=true` and `VITE_ENABLE_CM_EXPERIMENTAL=true` are local qualification opt-ins, not passed gates. No backend or deployment change was made.
+
+New commands: `bun run compression:fixtures`, `bun run compression:verify`, `bun run compression:benchmark --set=development [--shipping]`, and `bun run compression:qualify`. The latter enables local v2/CM and Chromium/Firefox/WebKit Playwright projects. Real mobile acceptance remains separate. The original 39 Lexical AST fixtures cannot be claimed from the dependency-free supplemental inputs.
+
+Wire proof runs in its own process because existing unit files globally mock compression modules. `src/codecs/v2.test.ts` launches the same isolated verification and fails if the real installed WASM backend is unavailable. Initialization/lifecycle mocks are not size evidence. Never regenerate immutable golden fragments inside assertions.
+
+Do not silently mutate corpus, golden or policy manifests. All byte savings include the tag, Unicode metadata, CRC/length/termination framing and URL serialization. Preserve the original research scripts and reviews. Shared Brotli/native decoding is now bounded incrementally; the frozen v1 source's historical post-decompression comment is superseded by the shared facade.
+
+Use Biome only for formatting. It was unavailable in this environment, so formatting/lint/build are not reported as passed. Review autofixes carefully: object construction order can change serialized candidate bytes even when JSON semantics stay equal; rerun the fixed CM goldens and full benchmarks after changes. Keep v1 files byte-identical.
