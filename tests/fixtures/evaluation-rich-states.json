@@ -1,0 +1,324 @@
+{
+  "eval-06": {
+    "root": {
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "type": "root",
+      "children": [
+        {
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "type": "heading",
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1,
+              "type": "text",
+              "text": "Reading log"
+            }
+          ],
+          "tag": "h1"
+        },
+        {
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": "",
+          "type": "paragraph",
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1,
+              "type": "text",
+              "text": "The narrator remembers "
+            },
+            {
+              "detail": 0,
+              "format": 1,
+              "mode": "normal",
+              "style": "",
+              "version": 1,
+              "type": "text",
+              "text": "a yellow gate"
+            },
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1,
+              "type": "text",
+              "text": ", but the witness describes "
+            },
+            {
+              "detail": 0,
+              "format": 2,
+              "mode": "normal",
+              "style": "",
+              "version": 1,
+              "type": "text",
+              "text": "a narrow staircase"
+            },
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1,
+              "type": "text",
+              "text": "."
+            }
+          ]
+        },
+        {
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "type": "list",
+          "children": [
+            {
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "type": "listitem",
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "version": 1,
+                  "type": "text",
+                  "text": "Compare the dates"
+                }
+              ],
+              "value": 1
+            },
+            {
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "type": "listitem",
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "version": 1,
+                  "type": "text",
+                  "text": "Mark the missing page"
+                }
+              ],
+              "value": 2
+            }
+          ],
+          "listType": "bullet",
+          "start": 1,
+          "tag": "ul"
+        },
+        {
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "type": "quote",
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1,
+              "type": "text",
+              "text": "Neither account explains the torn envelope."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "eval-07": {
+    "root": {
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "type": "root",
+      "children": [
+        {
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "type": "heading",
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1,
+              "type": "text",
+              "text": "Retry configuration"
+            }
+          ],
+          "tag": "h2"
+        },
+        {
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": "",
+          "type": "paragraph",
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1,
+              "type": "text",
+              "text": "Use "
+            },
+            {
+              "detail": 0,
+              "format": 16,
+              "mode": "normal",
+              "style": "",
+              "version": 1,
+              "type": "text",
+              "text": "attempts = 4"
+            },
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1,
+              "type": "text",
+              "text": " for the isolated experiment. Keep "
+            },
+            {
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "type": "link",
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "version": 1,
+                  "type": "text",
+                  "text": "the issue"
+                }
+              ],
+              "url": "https://example.net/issues/617?view=compact",
+              "rel": null,
+              "target": null,
+              "title": null
+            },
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1,
+              "type": "text",
+              "text": " attached."
+            }
+          ]
+        },
+        {
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "type": "list",
+          "children": [
+            {
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "type": "listitem",
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "version": 1,
+                  "type": "text",
+                  "text": "Record the first failure"
+                }
+              ],
+              "value": 1
+            },
+            {
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "type": "listitem",
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "version": 1,
+                  "type": "text",
+                  "text": "Reset the fixture"
+                }
+              ],
+              "value": 2
+            }
+          ],
+          "listType": "number",
+          "start": 1,
+          "tag": "ol"
+        },
+        {
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "type": "code",
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "version": 1,
+              "type": "text",
+              "text": "attempts=4\nbackoff_ms=250"
+            }
+          ],
+          "language": "ini"
+        }
+      ]
+    }
+  }
+}

@@ -69,6 +69,10 @@
     },
     "scripts": {
         "build": "tsc && vite build",
+        "compression:benchmark": "bun scripts/compression/benchmark.ts",
+        "compression:fixtures": "bun scripts/compression/export-fixtures.ts",
+        "compression:qualify": "VITE_ENABLE_V2=true VITE_ENABLE_CM_EXPERIMENTAL=true ALL_BROWSERS=true RUN_E2E=true playwright test",
+        "compression:verify": "bun scripts/compression/verify-wire.ts",
         "dev": "vite",
         "format": "bunx biome format --write src",
         "lint": "bunx biome check src",

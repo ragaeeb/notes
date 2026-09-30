@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, mock } from 'bun:test';
-import { renderHook, waitFor } from '@testing-library/react';
+import { act, renderHook, waitFor } from '@testing-library/react';
 
 afterEach(() => {
     mock.restore();
@@ -7,7 +7,7 @@ afterEach(() => {
 
 const mockCodecs = (
     decodeResult: unknown,
-    opts?: { version?: 'v1' | 'unknown'; decodeReject?: boolean; pending?: boolean },
+    opts?: { version?: 'v1' | 'v2' | 'unknown'; decodeReject?: boolean; pending?: boolean },
 ) => {
     mock.module('../codecs', () => ({
         decodeFromUrl: async () => {
@@ -89,5 +89,61 @@ describe('useDocument', () => {
 
         await waitFor(() => expect(result.current.isLoading).toBe(false));
         expect(result.current.documentVersion).toBeNull();
+    });
+});
+
+describe('v2 document lifecycle', () => {
+    it('should load the explicit empty v2 link rather than treating it as no hash', async () => {
+        const state = { root: { children: [], type: 'root' } };
+        mockCodecs(state, { version: 'v2' });
+        window.history.replaceState(null, '', '/v2/#.');
+        const { useDocument } = await import(`./useDocument?case=${Math.random()}`);
+        const { result, unmount } = renderHook(() => useDocument());
+        await waitFor(() => expect(result.current.isLoading).toBe(false));
+        expect(result.current.initialState).toEqual(state);
+        expect(result.current.documentVersion).toBe('v2');
+        unmount();
+    });
+    it('should cancel stale loads on navigation and ignore a late decoder result', async () => {
+        const signals: AbortSignal[] = [];
+        const finish: ((value: unknown) => void)[] = [];
+        mock.module('../codecs', () => ({
+            decodeFromUrl: (signal: AbortSignal) => {
+                signals.push(signal);
+                return new Promise((resolve) => finish.push(resolve));
+            },
+            detectVersion: () => 'v2',
+        }));
+        // happy-dom emits hashchange on a 0ms timeout after replaceState. Flush that
+        // timer instead of dispatching a second event, which aborts the real load.
+        const flushNavigation = async (): Promise<void> => {
+            await act(async () => {
+                await new Promise((resolve) => setTimeout(resolve, 0));
+            });
+        };
+        window.history.replaceState(null, '', '/v2/#.first');
+        const { useDocument } = await import(`./useDocument?case=${Math.random()}`);
+        const { result, unmount } = renderHook(() => useDocument());
+        await flushNavigation();
+        expect(signals.length).toBeGreaterThan(0);
+        await act(async () => {
+            window.history.replaceState(null, '', '/v2/#.second');
+        });
+        await flushNavigation();
+        const currentIndex = signals.length - 1;
+        expect(currentIndex).toBeGreaterThan(0);
+        expect(signals[0]?.aborted).toBe(true);
+        expect(signals[currentIndex]?.aborted).toBe(false);
+        const state = { root: { children: [], type: 'root' } };
+        await act(async () => {
+            finish[currentIndex]?.(state);
+            for (let i = 0; i < currentIndex; i++) {
+                finish[i]?.({ root: { stale: true } });
+            }
+        });
+        expect(result.current.initialState).toEqual(state);
+        expect(result.current.documentKey).toBe('/v2/#.second');
+        unmount();
+        expect(signals[currentIndex]?.aborted).toBe(true);
     });
 });

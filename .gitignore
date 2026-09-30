@@ -26,3 +26,8 @@ dist-ssr
 src/vite-env.d.ts
 test-results
 coverage
+
+# Compression implementation local artifacts
+playwright-report/
+.offline-build/
+*.tsbuildinfo
