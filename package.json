@@ -7,45 +7,45 @@
         "url": "https://github.com/ragaeeb/notes/issues"
     },
     "dependencies": {
-        "@lexical/code": "^0.41.0",
-        "@lexical/link": "^0.41.0",
-        "@lexical/list": "^0.41.0",
-        "@lexical/markdown": "^0.41.0",
-        "@lexical/react": "^0.41.0",
-        "@lexical/rich-text": "^0.41.0",
-        "@radix-ui/react-dialog": "^1.1.15",
-        "@radix-ui/react-slot": "^1.2.4",
-        "@radix-ui/react-tooltip": "^1.2.8",
-        "@tailwindcss/vite": "^4.2.1",
+        "@lexical/code": "^0.52.0",
+        "@lexical/link": "^0.52.0",
+        "@lexical/list": "^0.52.0",
+        "@lexical/markdown": "^0.52.0",
+        "@lexical/react": "^0.52.0",
+        "@lexical/rich-text": "^0.52.0",
+        "@radix-ui/react-dialog": "^1.1.23",
+        "@radix-ui/react-slot": "^1.3.3",
+        "@radix-ui/react-tooltip": "^1.2.16",
+        "@tailwindcss/vite": "^4.3.3",
         "brotli-wasm": "^3.0.1",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
-        "lexical": "^0.41.0",
-        "react": "^19.2.4",
-        "react-dom": "^19.2.4",
-        "tailwind-merge": "^3.5.0",
-        "tailwindcss": "^4.2.1"
+        "lexical": "^0.52.0",
+        "react": "^19.3.0",
+        "react-dom": "^19.3.0",
+        "tailwind-merge": "^3.7.0",
+        "tailwindcss": "^4.3.3"
     },
     "description": "Zero-backend document sharing app. The URL is the document.",
     "devDependencies": {
-        "@happy-dom/global-registrator": "^20.7.0",
-        "@playwright/test": "^1.58.2",
-        "@testing-library/jest-dom": "^6.9.1",
-        "@testing-library/react": "^16.3.2",
-        "@testing-library/user-event": "^14.6.1",
-        "@types/bun": "^1.3.9",
-        "@types/node": "^25.3.3",
-        "@types/react": "^19.2.14",
-        "@types/react-dom": "^19.2.3",
-        "@vitejs/plugin-react": "^5.1.4",
+        "@happy-dom/global-registrator": "^20.14.5",
+        "@playwright/test": "^1.63.0",
+        "@testing-library/jest-dom": "^7.0.1",
+        "@testing-library/react": "^16.3.3",
+        "@testing-library/user-event": "^14.6.7",
+        "@types/bun": "^1.4.2",
+        "@types/node": "^26.6.3",
+        "@types/react": "^19.3.0",
+        "@types/react-dom": "^19.3.0",
+        "@vitejs/plugin-react": "^6.1.1",
         "babel-plugin-react-compiler": "^1.0.0",
-        "happy-dom": "^20.7.0",
-        "typescript": "~5.9.3",
-        "vite": "^8.0.0-beta.16"
+        "happy-dom": "^20.14.5",
+        "typescript": "~7.0.2",
+        "vite": "^8.3.1"
     },
     "engines": {
-        "bun": ">=1.3.10",
-        "node": ">=24.0.0"
+        "bun": ">=1.4.2",
+        "node": ">=26.0.0"
     },
     "homepage": "https://notes.ilmtest.io",
     "keywords": [
@@ -61,7 +61,7 @@
     "overrides": {
         "vite": "^8.0.0-beta.13"
     },
-    "packageManager": "bun@1.3.10",
+    "packageManager": "bun@1.4.2",
     "private": true,
     "repository": {
         "type": "git",
@@ -78,5 +78,5 @@
         "test:e2e": "RUN_E2E=true playwright test"
     },
     "type": "module",
-    "version": "1.0.0"
+    "version": "1.1.0"
 }
