@@ -1,6 +1,9 @@
 import { MAX_BYTES } from './v2-constants';
 import { fail, hasLoneSurrogate, strictUtf8, utf8 } from './v2-json';
 
+/** UTF-8 byte length of one Unicode scalar (no encoder allocation). */
+const utf8ByteLength = (cp: number): number => (cp <= 0x7f ? 1 : cp <= 0x7ff ? 2 : cp <= 0xffff ? 3 : 4);
+
 // Frozen window8: two-byte BE index selects 128 scalar values. ASCII 0..126 is
 // literal, 0x7f escapes one UTF-8 scalar (length byte + bytes), 0x80..ff is the window.
 // Index 0..0x21ff covers Unicode; surrogate windows 0x1b0..0x1bf are invalid.
@@ -13,7 +16,7 @@ export const encodeWindow8 = (text: string): Uint8Array => {
         const cp = char.codePointAt(0) ?? 0;
         if (cp >= 128) {
             const window = cp >>> 7;
-            counts.set(window, (counts.get(window) ?? 0) + utf8.encode(char).length - 1);
+            counts.set(window, (counts.get(window) ?? 0) + utf8ByteLength(cp) - 1);
         }
     }
     let index = 0;
@@ -69,7 +72,7 @@ export const decodeWindow8 = (bytes: Uint8Array): string => {
             }
             i += length;
         }
-        size += utf8.encode(char).length;
+        size += utf8ByteLength(char.codePointAt(0) ?? 0);
         if (size > MAX_BYTES) {
             fail('Unicode reconstruction exceeds the size limit.');
         }

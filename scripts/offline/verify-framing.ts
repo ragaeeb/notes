@@ -1,6 +1,6 @@
 // Differential real-zlib evidence for the portable count-only RFC 1951 validator.
 import assert from 'node:assert/strict';
-import { writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { constants, deflateRawSync, inflateRawSync } from 'node:zlib';
 import { validateDeflateFraming } from '../../src/lib/deflate-framing';
 import { cmCompress, cmDecompress } from '../cm-codec';
@@ -38,6 +38,7 @@ const repaired = cmResearch.compress(input, emptyPrime);
 test('CM/new frame round-trip', () => assert.deepEqual(cmResearch.decompress(repaired,emptyPrime), input));
 for (let n=0;n<repaired.length;n++) test(`CM/new frame rejects prefix ${n}`, () => assert.throws(() => cmResearch.decompress(repaired.slice(0,n),emptyPrime)));
 const output = 'docs/implementation/evidence/native-framing-differential.json';
+mkdirSync('docs/implementation/evidence', { recursive: true });
 writeFileSync(output, JSON.stringify({ scope:'Real native zlib differential framing/count tests and original prototype regression. Not browser or WASM evidence.',runtime:process.versions,
     summary:{pass:checks.length,fail:0}, seed:'0x93a710cd',lengths,strategies:['default','fixed','Huffman-only','RLE'],levels:[0,1,6,9],
     prototype:{input:text,inputBytes:input.length,frameBytes:prototype.length,truncatedResult:damagedPrototype},repairedFrameBytes:repaired.length,

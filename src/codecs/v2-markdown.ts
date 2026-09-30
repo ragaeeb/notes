@@ -1,5 +1,5 @@
 // Version-owned, deliberately conservative Markdown grammar. No Lexical importer or
-// external parser is used to interpret an issued link. See docs/implementation/WIRE.md.
+// external parser is used to interpret an issued link.
 import { ELEMENT_DEFAULTS, PARAGRAPH_DEFAULTS, TEXT_DEFAULTS } from './v2-constants';
 import {
     asArray,

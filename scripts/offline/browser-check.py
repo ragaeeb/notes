@@ -10,6 +10,7 @@ import psutil
 from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUT = ROOT / "docs/implementation/evidence/chromium-core.json"
+OUTPUT.parent.mkdir(parents=True, exist_ok=True)
 stop = threading.Event()
 samples = []
 def sample():

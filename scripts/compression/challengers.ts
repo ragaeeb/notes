@@ -2,7 +2,7 @@
 // Each variant proposes replacing a single frozen model/dictionary, not combining them.
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { deflateRawSync, inflateRawSync } from 'node:zlib';
 import { uint8ToBase64url } from '../../src/codecs/base64url';
 import { CM_MAX_BYTES, MAX_BYTES } from '../../src/codecs/v2-constants';
@@ -22,7 +22,9 @@ const previous = process.argv.includes('--resume') && existsSync(output) ? JSON.
 if (previous) assert.deepEqual(previous.manifest,manifest,'Challenger inputs drifted.');
 const records = previous?.records ?? [];
 const limit = Number(process.argv.find(arg=>arg.startsWith('--limit='))?.slice(8) ?? Infinity);
-const baseline = JSON.parse(readFileSync('docs/implementation/evidence/native-development-exhaustive.json','utf8'));
+const baselinePath = process.argv.find(arg=>arg.startsWith('--baseline='))?.slice(11) ?? 'docs/implementation/evidence/native-development-exhaustive.json';
+assert(existsSync(baselinePath), `Missing baseline report at ${baselinePath}. Run compression:benchmark --native --set=development first, or pass --baseline=.`);
+const baseline = JSON.parse(readFileSync(baselinePath,'utf8'));
 const dictionaryFrame = (bytes: Uint8Array): Uint8Array => {
     let length = bytes.length;
     const header: number[] = [];
@@ -67,6 +69,7 @@ for(const input of inputs) {
     }
     const current=baseline.records.find((r:{id:string})=>r.id===input.id);
     records.push({id:input.id,inputSha256:sha(JSON.stringify(input.state)),currentCombinedFragmentChars:current.selectedFragmentChars,candidates});
+    if (output.includes('/')) mkdirSync(output.slice(0, output.lastIndexOf('/')), { recursive: true });
     writeFileSync(output,JSON.stringify({status:'in-progress',manifest,records},null,2)+'\n');
     console.log(`${input.id}: ${candidates.length} verified challenger candidates`);
 }
@@ -74,6 +77,7 @@ const summary=Object.fromEntries(['current','30k','60k','dictionary'].map(varian
     documents:records.length,candidates:records.reduce((n,r)=>n+r.candidates.filter(c=>c.variant===variant).length,0),
     uniqueWinsOverCurrentCombined:records.filter(r=>Math.min(...r.candidates.filter(c=>c.variant===variant).map(c=>c.fragmentChars))<r.currentCombinedFragmentChars).map(r=>({id:r.id,current:r.currentCombinedFragmentChars,challenger:Math.min(...r.candidates.filter(c=>c.variant===variant).map(c=>c.fragmentChars))}))
 }]));
+if (output.includes('/')) mkdirSync(output.slice(0, output.lastIndexOf('/')), { recursive: true });
 writeFileSync(output,JSON.stringify({status:records.length===inputs.length?'complete':'in-progress',scope:'Native-only development challenger; UTF-8 bodies, hypothetical complete one-tag framing. Not emitted by v2 and not browser-qualified.',
     trainingProvenance:'Deterministic independently authored synthetic technical augmentation of the original corpus. Highly repetitive; NOT a 30/60 KB independently collected natural-language corpus. Training assets were frozen without reading evaluation inputs.',
     runtime:process.versions,manifest,summary,processPeakRssKiB:process.resourceUsage().maxRSS,

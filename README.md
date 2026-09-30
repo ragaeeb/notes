@@ -66,7 +66,7 @@ Decoded representation and reconstructed document JSON are limited to 2 MiB, wit
 
 `/v2/#<tag><body>` selects among full JSON, v1-equivalent JSON, exact plain text, compact objects, positional tuples, split text and version-owned Markdown. Candidates use raw bytes, native deflate, Brotli or integrity-framed context mixing. Unicode-window encoding is considered where useful. Only results that reconstruct the complete original serialized state are admitted. `Hello world` can be `/v2/#.Hello~world`; `.` represents an explicit empty paragraph.
 
-**This delivery is not production-qualified.** Both readers are wired in, but the default writer remains v1 and CM emission remains disabled. Native/Chromium-core results do not replace the missing installed-WASM, React/Vite, Safari/Firefox and real-mobile gates. See [HANDOFF.md](HANDOFF.md), the [wire contract](docs/implementation/WIRE.md), [results](docs/implementation/RESULTS.md) and [ledger](docs/implementation/LEDGER.md).
+**V2 is not production-qualified yet.** Both readers are wired in, but the default writer remains v1 and CM emission remains disabled. Local qualification flags and compression scripts do not replace full browser/device acceptance.
 
 For local qualification only:
 
@@ -104,7 +104,8 @@ GitHub Actions are split by responsibility:
 
 - `.github/workflows/build.yml`: CI only (build + unit/integration tests + lcov upload to Codecov)
 - `.github/workflows/release.yml`: Semantic Release only (versioning, changelog, GitHub release)
-- `.github/workflows/deploy.yml`: Cloudflare Pages deploy only (build + `wrangler pages deploy`)
+
+There is no GitHub Actions deploy workflow. Production deploy is Cloudflare Pages (Git integration) or local Wrangler (`pages deploy dist --project-name=notes`).
 
 ## Deployment
 
@@ -139,24 +140,9 @@ If Git integration is working:
 3. Output directory: `dist`
 4. Keep SPA routing via `public/_redirects`
 
-### GitHub Actions deploy secrets (for `.github/workflows/deploy.yml`)
+### Wrangler auth (local CLI deploy)
 
-Set these in GitHub: **Repo Settings -> Secrets and variables -> Actions -> New repository secret**
-
-1. `CLOUDFLARE_API_TOKEN`
-   - Cloudflare Dashboard -> **My Profile** -> **API Tokens** -> **Create Token** -> **Use template** -> **Edit Cloudflare Workers**
-   - On the token form, use these values:
-     - **Permissions**: keep the template defaults (do not remove entries)
-     - **Account Resources**: `Include` -> select the account that owns the `notes` Pages project
-     - **Zone Resources**: `Include` -> `All zones` (or select only `ilmtest.io`)
-     - **Client IP Address Filtering**: leave empty
-     - **TTL**: no expiry (recommended for CI), or set an expiry if your team rotates tokens
-   - Click **Continue to summary** -> **Create Token**
-   - Copy the token immediately and save it as GitHub secret `CLOUDFLARE_API_TOKEN`
-2. `CLOUDFLARE_ACCOUNT_ID`
-   - Cloudflare Dashboard -> right sidebar under **Account ID** (for the same account selected above)
-   - Or run `bunx wrangler whoami` after `bunx wrangler login` and copy the account ID
-   - Save it as GitHub secret `CLOUDFLARE_ACCOUNT_ID`
+For Option A, authenticate with `bunx wrangler login` (or set `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` in the environment). No GitHub Actions deploy workflow consumes those secrets in this repository.
 
 Workflow command is:
 

@@ -1,6 +1,6 @@
 // Run this in its OWN process. Never inside the unit suite's mocked module registry.
 import { createHash } from 'node:crypto';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { browserCompression } from '../../src/lib/compression';
 import { runWireContract, type Golden } from '../../tests/contract/wire-contract';
 import { runWorkerContract } from '../../tests/contract/worker-contract';
@@ -17,6 +17,7 @@ const evidence = { scope: offline ? 'Supplemental native algorithms, not install
     goldenSha256: createHash('sha256').update(goldenBytes).digest('hex'),
     processPeakRssKiB: process.resourceUsage().maxRSS, processMemoryAfter: process.memoryUsage(),
     summary: Object.fromEntries(['pass','fail','skip'].map(status => [status, cases.filter(c => c.status === status).length])), cases };
+if (output.includes('/')) mkdirSync(output.slice(0, output.lastIndexOf('/')), { recursive: true });
 writeFileSync(output, JSON.stringify(evidence, null, 2)+'\n');
 console.log(JSON.stringify({ output, summary: evidence.summary, elapsedMs: evidence.elapsedMs, processPeakRssKiB: evidence.processPeakRssKiB }));
 for (const failure of cases.filter(c => c.status === 'fail')) console.error(failure.name, failure.detail);
