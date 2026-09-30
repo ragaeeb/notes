@@ -18,13 +18,13 @@ Zero-backend document sharing app. The entire document is stored in the URL frag
 - Rich text editing with Lexical
 - Instant sharing via URL fragment
 - No backend, no auth, no database
-- Versioned codec routing (`/v1/`)
+- Permanent v1 and v2 readers (`/v1/`, `/v2/`); qualification-gated v2 writer
 - URL budget indicator with warning threshold
 - Dark-mode-first UI
 
 ## How It Works
 
-URL is the storage layer. A 3-byte header precedes each compressed payload for forward compatibility.
+URL is the storage layer. The existing v1 format below uses a 3-byte header. The implemented v2 format uses a one-character tag and exact-losslessness candidate selection; production activation is gated as described below.
 
 **Encode path:**
 
@@ -58,18 +58,30 @@ Codec version is in the path. Decoder support for existing versions must stay fo
 
 ## Payload Limits
 
-| Browser | Safe Limit | Approx. Max Words |
-|---|---|---|
-| Chrome/Edge | ~2MB URL | ~120,000 words |
-| Firefox | ~65KB encoded | ~39,000 words |
-| Safari | ~65KB encoded | ~39,000 words |
-| **Cross-browser safe** | **~64KB encoded** | **~38,000 words** |
+The UI's 65,536-character **fragment** budget and 95% warning are heuristics, not a guarantee about every browser, device, messaging app or total URL length. No word-count capacity is promised. Actual limits depend on the content, origin and receiving software.
 
-## Codec Versioning
+Decoded representation and reconstructed document JSON are limited to 2 MiB, with additional nesting/container limits. CM additionally limits its representation to 128 KiB and model arrays to 16 MiB. A dedicated worker enforces a two-second request deadline; the normal-work target is 500 ms, not a measured mobile guarantee.
 
-- `/v1/` is the current codec path.
-- Future codecs should be added as `/v2/`, `/v3/`, etc.
-- Existing decoders are never removed.
+## V2 implementation and qualification
+
+`/v2/#<tag><body>` selects among full JSON, v1-equivalent JSON, exact plain text, compact objects, positional tuples, split text and version-owned Markdown. Candidates use raw bytes, native deflate, Brotli or integrity-framed context mixing. Unicode-window encoding is considered where useful. Only results that reconstruct the complete original serialized state are admitted. `Hello world` can be `/v2/#.Hello~world`; `.` represents an explicit empty paragraph.
+
+**V2 is not production-qualified yet.** Both readers are wired in, but the default writer remains v1 and CM emission remains disabled. Local qualification flags and compression scripts do not replace full browser/device acceptance.
+
+For local qualification only:
+
+```bash
+VITE_ENABLE_V2=true VITE_ENABLE_CM_EXPERIMENTAL=true bun dev
+bun run compression:fixtures
+bun run compression:verify
+bun run compression:benchmark --set=development
+bun run compression:benchmark --set=development --shipping
+bun run compression:qualify
+```
+
+Freeze reviewed fixture/model/policy manifests before scoring a **new** untouched evaluation set. The supplied evaluation set has now been scored; do not retune on it while still calling it untouched. The baseline studies' 14 + 8 + 17 real Lexical exports require installed dependencies. Supplemental native fixtures are explicitly not those 39 exported ASTs.
+
+Existing decoder meanings must remain available permanently. Do not change assigned v2 tags, parser rules, model/corpus bytes, or restoration defaults to accommodate an encoder optimization. Keep the editor's full normal `toJSON()` export. Do not deploy merely because the opt-in flags exist.
 
 ## Getting Started
 
@@ -92,7 +104,8 @@ GitHub Actions are split by responsibility:
 
 - `.github/workflows/build.yml`: CI only (build + unit/integration tests + lcov upload to Codecov)
 - `.github/workflows/release.yml`: Semantic Release only (versioning, changelog, GitHub release)
-- `.github/workflows/deploy.yml`: Cloudflare Pages deploy only (build + `wrangler pages deploy`)
+
+There is no GitHub Actions deploy workflow. Production deploy is Cloudflare Pages (Git integration) or local Wrangler (`pages deploy dist --project-name=notes`).
 
 ## Deployment
 
@@ -127,24 +140,9 @@ If Git integration is working:
 3. Output directory: `dist`
 4. Keep SPA routing via `public/_redirects`
 
-### GitHub Actions deploy secrets (for `.github/workflows/deploy.yml`)
+### Wrangler auth (local CLI deploy)
 
-Set these in GitHub: **Repo Settings -> Secrets and variables -> Actions -> New repository secret**
-
-1. `CLOUDFLARE_API_TOKEN`
-   - Cloudflare Dashboard -> **My Profile** -> **API Tokens** -> **Create Token** -> **Use template** -> **Edit Cloudflare Workers**
-   - On the token form, use these values:
-     - **Permissions**: keep the template defaults (do not remove entries)
-     - **Account Resources**: `Include` -> select the account that owns the `notes` Pages project
-     - **Zone Resources**: `Include` -> `All zones` (or select only `ilmtest.io`)
-     - **Client IP Address Filtering**: leave empty
-     - **TTL**: no expiry (recommended for CI), or set an expiry if your team rotates tokens
-   - Click **Continue to summary** -> **Create Token**
-   - Copy the token immediately and save it as GitHub secret `CLOUDFLARE_API_TOKEN`
-2. `CLOUDFLARE_ACCOUNT_ID`
-   - Cloudflare Dashboard -> right sidebar under **Account ID** (for the same account selected above)
-   - Or run `bunx wrangler whoami` after `bunx wrangler login` and copy the account ID
-   - Save it as GitHub secret `CLOUDFLARE_ACCOUNT_ID`
+For Option A, authenticate with `bunx wrangler login` (or set `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` in the environment). No GitHub Actions deploy workflow consumes those secrets in this repository.
 
 Workflow command is:
 

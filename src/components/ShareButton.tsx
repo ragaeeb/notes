@@ -1,15 +1,17 @@
 import { Button } from './ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
 
-type ShareButtonProps = { onShare: () => Promise<void>; isCopied: boolean };
+type ShareButtonProps = { onShare: () => Promise<void>; isCopied: boolean; isPreparing?: boolean };
 
-const ShareButton = ({ onShare, isCopied }: ShareButtonProps) => {
+const ShareButton = ({ onShare, isCopied, isPreparing = false }: ShareButtonProps) => {
     return (
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger asChild>
                     <Button
                         data-testid="share-button"
+                        disabled={isPreparing}
+                        aria-busy={isPreparing}
                         onClick={() => {
                             onShare().catch(() => {});
                         }}
@@ -17,7 +19,7 @@ const ShareButton = ({ onShare, isCopied }: ShareButtonProps) => {
                         type="button"
                         variant="secondary"
                     >
-                        {isCopied ? 'Copied!' : 'Share'}
+                        {isPreparing ? 'Preparing…' : isCopied ? 'Copied!' : 'Share'}
                     </Button>
                 </TooltipTrigger>
                 <TooltipContent>{isCopied ? 'URL copied to clipboard' : 'Generate and copy URL'}</TooltipContent>

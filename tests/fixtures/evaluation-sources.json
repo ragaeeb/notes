@@ -1,0 +1,12 @@
+[
+  {"id":"eval-01","name":"Community pantry instructions","set":"evaluation","kind":"plain","text":"Leave the blue crates beside the east door. We count tins after lunch, not before. If the label is damaged, put that tin on the inspection shelf.\nThe spare key belongs in drawer seven; please do not attach it to the delivery receipt."},
+  {"id":"eval-02","name":"Arabic museum reminder","set":"evaluation","kind":"plain","text":"تبدأ جولة المتحف عند الرابعة عصراً. احتفظ بالتذكرة حتى نهاية الزيارة، ولا تضع الحقيبة قرب الباب الزجاجي.\nسنلتقي بجانب الخريطة القديمة بعد انتهاء الجولة."},
+  {"id":"eval-03","name":"Japanese seed exchange","set":"evaluation","kind":"plain","text":"土曜日に種の交換会を開きます。袋には植物の名前と採取した月を書いてください。\n雨の日は図書室の入口で待ち合わせましょう。"},
+  {"id":"eval-04","name":"German workshop","set":"evaluation","kind":"plain","text":"Die Ersatzschrauben liegen im grünen Kasten. Bitte prüfe zuerst das Gewinde und notiere die gemessene Länge.\nNach dem letzten Versuch bleibt die Maschine ausgeschaltet."},
+  {"id":"eval-05","name":"Mixed codepoint identities","set":"evaluation","kind":"plain","text":"🏕️ Route B → checkpoint 17. NFC: Å; decomposed: Å.\nאור כחול / ضوء أزرق / 青い光\nLiteral references: ~ %20 %7E #fragment?x=1&y=2\n"},
+  {"id":"eval-06","name":"Reading log rich","set":"evaluation","kind":"markdown","text":"# Reading log\n\nThe narrator remembers **a yellow gate**, but the witness describes *a narrow staircase*.\n\n- Compare the dates\n- Mark the missing page\n\n> Neither account explains the torn envelope."},
+  {"id":"eval-07","name":"Configuration review rich","set":"evaluation","kind":"markdown","text":"## Retry configuration\n\nUse `attempts = 4` for the isolated experiment. Keep [the issue](https://example.net/issues/617?view=compact) attached.\n\n1. Record the first failure\n2. Reset the fixture\n\n```ini\nattempts=4\nbackoff_ms=250\n```"},
+  {"id":"eval-08","name":"Blank paragraph identities","set":"evaluation","kind":"plain","text":"\n\n  Keep these edges.  \n\n\nLast line\n\n"},
+  {"id":"eval-09","name":"Small inventory","set":"evaluation","kind":"plain","text":"Shelf C: 7 lamps, 12 hooks, 3 unopened boxes.\nReceipt 49-783 belongs to Friday’s shipment."},
+  {"id":"eval-10","name":"Unpaired code units","set":"evaluation","kind":"plain","text":"Keep the isolated high \udbff and low \udc00 code units unchanged."}
+]
